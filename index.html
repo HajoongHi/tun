@@ -1,0 +1,827 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>3ALOGICS TUN URL Verification Tool</title>
+  <style>
+    :root {
+      --bg: #08090d;
+      --panel: #11131b;
+      --panel2: #171a24;
+      --text: #f5f7fb;
+      --muted: #a7adbc;
+      --line: rgba(255,255,255,0.11);
+      --accent: #8ab4ff;
+      --green: #32d583;
+      --red: #ff5a6a;
+      --yellow: #fdb022;
+      --shadow: 0 20px 80px rgba(0,0,0,0.38);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background:
+        radial-gradient(circle at top left, rgba(80, 130, 255, 0.20), transparent 34rem),
+        radial-gradient(circle at top right, rgba(50, 213, 131, 0.10), transparent 30rem),
+        var(--bg);
+      color: var(--text);
+      font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    .hero {
+      background: linear-gradient(180deg, rgba(0,0,0,0.78), rgba(8,9,13,0.86));
+      border-bottom: 1px solid var(--line);
+      padding: 26px 18px 22px;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      backdrop-filter: blur(14px);
+    }
+
+    .hero-inner {
+      max-width: 1120px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      gap: 18px;
+    }
+
+    .brand-logo {
+      min-width: 150px;
+      height: 46px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      letter-spacing: 1.6px;
+      font-weight: 900;
+      font-size: 24px;
+      border: 1px solid rgba(255,255,255,0.18);
+      border-radius: 14px;
+      background:
+        linear-gradient(135deg, rgba(255,255,255,0.16), rgba(255,255,255,0.02)),
+        rgba(255,255,255,0.03);
+      box-shadow:
+        0 0 18px rgba(255,255,255,0.10),
+        inset 0 1px 0 rgba(255,255,255,0.18);
+      text-shadow: 0 0 14px rgba(255,255,255,0.34);
+    }
+
+    .brand-logo .three { color: #ffffff; margin-right: 2px; }
+    .brand-logo .a { color: #ffffff; margin-right: 2px; }
+    .brand-logo .logic { color: rgba(255,255,255,0.88); }
+
+    .title-wrap { min-width: 0; }
+
+    .title {
+      font-size: clamp(22px, 4vw, 34px);
+      font-weight: 800;
+      line-height: 1.1;
+      margin: 0;
+    }
+
+    .subtitle {
+      color: var(--muted);
+      margin-top: 7px;
+      font-size: 14px;
+    }
+
+    .page {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 24px 18px 52px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 16px;
+    }
+
+    @media (min-width: 940px) {
+      .grid { grid-template-columns: 0.95fr 1.05fr; }
+    }
+
+    .card {
+      background: linear-gradient(180deg, rgba(255,255,255,0.055), rgba(255,255,255,0.025)), var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .card-header {
+      padding: 17px 18px;
+      border-bottom: 1px solid var(--line);
+      background: rgba(255,255,255,0.03);
+      font-weight: 800;
+    }
+
+    .card-body { padding: 18px; }
+
+    label {
+      display: block;
+      font-weight: 700;
+      margin-bottom: 8px;
+      color: rgba(255,255,255,0.92);
+    }
+
+    textarea, input {
+      width: 100%;
+      border: 1px solid rgba(255,255,255,0.14);
+      background: rgba(0,0,0,0.30);
+      color: var(--text);
+      border-radius: 12px;
+      padding: 13px 14px;
+      outline: none;
+      font-size: 14px;
+      transition: border-color 0.15s, box-shadow 0.15s;
+    }
+
+    textarea {
+      min-height: 178px;
+      resize: vertical;
+      line-height: 1.55;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+
+    input { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+
+    textarea:focus, input:focus {
+      border-color: rgba(138,180,255,0.78);
+      box-shadow: 0 0 0 4px rgba(138,180,255,0.12);
+    }
+
+    .hint {
+      margin-top: 8px;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.45;
+    }
+
+    .form-row { margin-bottom: 16px; }
+
+    .btn-row {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 4px;
+    }
+
+    button {
+      border: 0;
+      cursor: pointer;
+      border-radius: 12px;
+      padding: 12px 16px;
+      color: white;
+      font-weight: 800;
+      letter-spacing: 0.2px;
+    }
+
+    .primary {
+      background: linear-gradient(135deg, #4776ff, #73a4ff);
+      box-shadow: 0 10px 26px rgba(71,118,255,0.28);
+      flex: 1 1 150px;
+    }
+
+    .ghost {
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.14);
+      color: rgba(255,255,255,0.92);
+    }
+
+    .sample {
+      background: rgba(255,255,255,0.05);
+      color: rgba(255,255,255,0.88);
+      border: 1px solid rgba(255,255,255,0.12);
+    }
+
+    .status-wrap {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      border-radius: 999px;
+      padding: 9px 13px;
+      font-weight: 900;
+      font-size: 13px;
+      border: 1px solid transparent;
+    }
+
+    .chip.pass {
+      color: #d9ffe9;
+      background: rgba(50,213,131,0.18);
+      border-color: rgba(50,213,131,0.36);
+    }
+
+    .chip.fail {
+      color: #ffe1e4;
+      background: rgba(255,90,106,0.16);
+      border-color: rgba(255,90,106,0.36);
+    }
+
+    .chip.wait {
+      color: #fff1ce;
+      background: rgba(253,176,34,0.14);
+      border-color: rgba(253,176,34,0.32);
+    }
+
+    .section {
+      background: rgba(0,0,0,0.19);
+      border: 1px solid rgba(255,255,255,0.09);
+      border-radius: 14px;
+      padding: 14px;
+      margin-top: 13px;
+    }
+
+    .section-title {
+      font-weight: 900;
+      margin-bottom: 11px;
+      color: rgba(255,255,255,0.96);
+    }
+
+    .kv {
+      display: grid;
+      grid-template-columns: 145px 1fr;
+      gap: 6px 12px;
+      padding: 6px 0;
+      border-top: 1px dashed rgba(255,255,255,0.08);
+    }
+
+    .kv:first-of-type { border-top: 0; }
+    .k { color: var(--muted); font-weight: 700; }
+    .v {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      word-break: break-all;
+      color: #f8fbff;
+    }
+
+    .v.pass { color: var(--green); font-weight: 900; font-family: inherit; }
+    .v.fail { color: var(--red); font-weight: 900; font-family: inherit; }
+
+    .error {
+      color: #ffe1e4;
+      border: 1px solid rgba(255,90,106,0.35);
+      background: rgba(255,90,106,0.13);
+      padding: 13px 14px;
+      border-radius: 14px;
+      line-height: 1.5;
+      margin-top: 14px;
+      display: none;
+    }
+
+    .total {
+      margin-top: 14px;
+      padding: 16px;
+      border-radius: 16px;
+      font-weight: 1000;
+      font-size: 20px;
+      text-align: center;
+      border: 1px solid rgba(255,255,255,0.12);
+      background: rgba(255,255,255,0.05);
+    }
+
+    .total.pass {
+      color: #d9ffe9;
+      background: rgba(50,213,131,0.16);
+      border-color: rgba(50,213,131,0.36);
+    }
+
+    .total.fail {
+      color: #ffe1e4;
+      background: rgba(255,90,106,0.14);
+      border-color: rgba(255,90,106,0.36);
+    }
+
+    .footer-note {
+      color: var(--muted);
+      font-size: 12.5px;
+      line-height: 1.5;
+      margin-top: 18px;
+    }
+
+    @media (max-width: 520px) {
+      .hero-inner { align-items: flex-start; flex-direction: column; gap: 12px; }
+      .brand-logo { min-width: 136px; height: 42px; font-size: 21px; }
+      .kv { grid-template-columns: 1fr; gap: 2px; }
+    }
+  </style>
+</head>
+<body>
+  <header class="hero">
+    <div class="hero-inner">
+      <div class="brand-logo" aria-label="3ALOGICS logo">
+        <span class="three">3</span><span class="a">A</span><span class="logic">LOGICS</span>
+      </div>
+      <div class="title-wrap">
+        <h1 class="title">TUN URL Verification Tool</h1>
+        <div class="subtitle">ASCII_ENC=1 · ENC / CMAC Verification · UID / ReadCounter Decryption</div>
+      </div>
+    </div>
+  </header>
+
+  <main class="page">
+    <div class="grid">
+      <section class="card">
+        <div class="card-header">Input</div>
+        <div class="card-body">
+          <div class="form-row">
+            <label for="urlInput">NFC Value URL 또는 Payload HEX</label>
+            <textarea id="urlInput" spellcheck="false" placeholder="https://www.dev.url.nedges.com/tun?enc=...&gid=...&TT=...&CMAC=..."></textarea>
+            <div class="hint">스마트폰에서 NFC URL을 복사해서 붙여넣거나, Payload HEX의 0xNN 리스트를 그대로 붙여넣어도 돼.</div>
+          </div>
+
+          <div class="form-row">
+            <label for="keyInput">KEY1 16B HEX</label>
+            <input id="keyInput" value="FFEEDDCCBBAA99887766554433221100" spellcheck="false" />
+          </div>
+
+          <div class="btn-row">
+            <button class="primary" onclick="verifyTun()">VERIFY</button>
+            <button class="ghost" onclick="clearAll()">CLEAR</button>
+            <button class="sample" onclick="loadSample()">SAMPLE</button>
+          </div>
+
+          <div id="errorBox" class="error"></div>
+          <div class="footer-note">
+            이 페이지는 서버로 데이터를 보내지 않고 브라우저 안에서만 계산한다. NFC 태그 URL이 이 웹페이지 주소로 연결되면, 주소창의 enc/gid/TT/CMAC 값을 자동으로 읽어서 검증할 수 있다.
+          </div>
+        </div>
+      </section>
+
+      <section class="card">
+        <div class="card-header">Result</div>
+        <div class="card-body">
+          <div id="statusWrap" class="status-wrap">
+            <span class="chip wait">WAITING INPUT</span>
+          </div>
+
+          <div class="section">
+            <div class="section-title">STEP 1. Parsed URL Field</div>
+            <div class="kv"><div class="k">INPUT ENC</div><div id="inputEnc" class="v">-</div></div>
+            <div class="kv"><div class="k">INPUT GID</div><div id="inputGid" class="v">-</div></div>
+            <div class="kv"><div class="k">INPUT TT</div><div id="inputTt" class="v">-</div></div>
+            <div class="kv"><div class="k">INPUT CMAC</div><div id="inputCmac" class="v">-</div></div>
+          </div>
+
+          <div class="section">
+            <div class="section-title">STEP 2. ENC / CMAC Verification</div>
+            <div class="kv"><div class="k">INPUT ENC</div><div id="verifyInputEnc" class="v">-</div></div>
+            <div class="kv"><div class="k">Calculated ENC</div><div id="calcEnc" class="v">-</div></div>
+            <div class="kv"><div class="k">ENC Compare</div><div id="encCompare" class="v">-</div></div>
+            <div class="kv"><div class="k">INPUT CMAC</div><div id="verifyInputCmac" class="v">-</div></div>
+            <div class="kv"><div class="k">Calculated CMAC</div><div id="calcCmac" class="v">-</div></div>
+            <div class="kv"><div class="k">CMAC Compare</div><div id="cmacCompare" class="v">-</div></div>
+          </div>
+
+          <div class="section">
+            <div class="section-title">STEP 3. ENC Decryption</div>
+            <div class="kv"><div class="k">Decrypted UID</div><div id="uidOut" class="v">-</div></div>
+            <div class="kv"><div class="k">ReadCounter</div><div id="readCounterOut" class="v">-</div></div>
+          </div>
+
+          <div id="totalBox" class="total">TOTAL RESULT = -</div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <script>
+    const DEFAULT_SAMPLE = 'https://www.dev.url.nedges.com/tun?enc=4A4914EE0821BDD6B62FE87184597C0D&gid=55443322&TT=000000&CMAC=7B5E705CF37351FC';
+
+    function $(id) { return document.getElementById(id); }
+
+    function showError(msg) {
+      const box = $('errorBox');
+      box.textContent = msg;
+      box.style.display = 'block';
+    }
+
+    function hideError() {
+      const box = $('errorBox');
+      box.textContent = '';
+      box.style.display = 'none';
+    }
+
+    function setText(id, value, cls) {
+      const el = $(id);
+      el.textContent = value;
+      el.className = 'v' + (cls ? ' ' + cls : '');
+    }
+
+    function setStatus(encPass, cmacPass, totalPass) {
+      $('statusWrap').innerHTML =
+        `<span class="chip ${encPass ? 'pass' : 'fail'}">ENC ${encPass ? 'PASS' : 'FAIL'}</span>` +
+        `<span class="chip ${cmacPass ? 'pass' : 'fail'}">CMAC ${cmacPass ? 'PASS' : 'FAIL'}</span>` +
+        `<span class="chip ${totalPass ? 'pass' : 'fail'}">TOTAL ${totalPass ? 'PASS' : 'FAIL'}</span>`;
+
+      const total = $('totalBox');
+      total.textContent = `TOTAL RESULT = ${totalPass ? 'PASS' : 'FAIL'}`;
+      total.className = 'total ' + (totalPass ? 'pass' : 'fail');
+    }
+
+    function clearResult() {
+      const ids = [
+        'inputEnc', 'inputGid', 'inputTt', 'inputCmac',
+        'verifyInputEnc', 'calcEnc', 'encCompare',
+        'verifyInputCmac', 'calcCmac', 'cmacCompare',
+        'uidOut', 'readCounterOut'
+      ];
+
+      ids.forEach(id => setText(id, '-'));
+      $('statusWrap').innerHTML = '<span class="chip wait">WAITING INPUT</span>';
+      $('totalBox').textContent = 'TOTAL RESULT = -';
+      $('totalBox').className = 'total';
+    }
+
+    function clearAll() {
+      $('urlInput').value = '';
+      hideError();
+      clearResult();
+    }
+
+    function loadSample() {
+      $('urlInput').value = DEFAULT_SAMPLE;
+      verifyTun();
+    }
+
+    function hexToBytesExact(input, expectedBytes) {
+      const clean = input.replace(/[^0-9a-fA-F]/g, '');
+      if (clean.length !== expectedBytes * 2) {
+        throw new Error(`HEX length error. Need ${expectedBytes * 2} hex chars, got ${clean.length}.`);
+      }
+      const out = new Uint8Array(expectedBytes);
+      for (let i = 0; i < expectedBytes; i++) {
+        out[i] = parseInt(clean.slice(i * 2, i * 2 + 2), 16);
+      }
+      return out;
+    }
+
+    function bytesToHex(bytes) {
+      return Array.from(bytes).map(b => b.toString(16).padStart(2, '0').toUpperCase()).join('');
+    }
+
+    function reverseBytes(bytes) {
+      return Uint8Array.from(Array.from(bytes).reverse());
+    }
+
+    function equalBytes(a, b) {
+      if (a.length !== b.length) return false;
+      let diff = 0;
+      for (let i = 0; i < a.length; i++) diff |= a[i] ^ b[i];
+      return diff === 0;
+    }
+
+    function extractHexField(text, field, hexLen) {
+      let re = new RegExp('(?:^|[?&])' + field + '=%?([0-9a-fA-F]{' + hexLen + '})', 'i');
+      let m = text.match(re);
+      if (!m) {
+        re = new RegExp(field + '=%?([0-9a-fA-F]{' + hexLen + '})', 'i');
+        m = text.match(re);
+      }
+      return m ? m[1] : null;
+    }
+
+    function payloadHexToAscii(text) {
+      const matches = text.matchAll(/0x([0-9a-fA-F]{2})/g);
+      let s = '';
+      for (const m of matches) {
+        const v = parseInt(m[1], 16);
+        s += (v >= 0x20 && v <= 0x7E) ? String.fromCharCode(v) : ' ';
+      }
+      return s;
+    }
+
+    function parseTunFields(input) {
+      const tryParse = (text) => {
+        const enc = extractHexField(text, 'enc', 32);
+        const gid = extractHexField(text, 'gid', 8);
+        const tt = extractHexField(text, 'TT', 6);
+        const cmac = extractHexField(text, 'CMAC', 16);
+        if (!enc || !gid || !tt || !cmac) return null;
+        return {
+          enc: hexToBytesExact(enc, 16),
+          gid: hexToBytesExact(gid, 4),
+          tt: hexToBytesExact(tt, 3),
+          cmac: hexToBytesExact(cmac, 8)
+        };
+      };
+
+      let parsed = tryParse(input);
+      if (parsed) return parsed;
+
+      parsed = tryParse(payloadHexToAscii(input));
+      if (parsed) return parsed;
+
+      throw new Error('Parse failed. Need enc=32hex, gid=8hex, TT=6hex, CMAC=16hex.');
+    }
+
+    function gfMul(a, b) {
+      let p = 0;
+      for (let i = 0; i < 8; i++) {
+        if (b & 1) p ^= a;
+        const hi = a & 0x80;
+        a = (a << 1) & 0xff;
+        if (hi) a ^= 0x1b;
+        b >>= 1;
+      }
+      return p & 0xff;
+    }
+
+    function rotl8(x, n) { return ((x << n) | (x >> (8 - n))) & 0xff; }
+
+    function gfPow(a, p) {
+      let r = 1;
+      while (p > 0) {
+        if (p & 1) r = gfMul(r, a);
+        a = gfMul(a, a);
+        p >>= 1;
+      }
+      return r;
+    }
+
+    const SBOX = new Uint8Array(256);
+    const INV_SBOX = new Uint8Array(256);
+
+    for (let i = 0; i < 256; i++) {
+      const inv = i === 0 ? 0 : gfPow(i, 254);
+      const s = (inv ^ rotl8(inv, 1) ^ rotl8(inv, 2) ^ rotl8(inv, 3) ^ rotl8(inv, 4) ^ 0x63) & 0xff;
+      SBOX[i] = s;
+      INV_SBOX[s] = i;
+    }
+
+    function keyExpansion(key) {
+      const w = new Uint8Array(176);
+      w.set(key);
+      let rcon = 1;
+      const temp = new Uint8Array(4);
+
+      for (let i = 16; i < 176; i += 4) {
+        temp[0] = w[i - 4];
+        temp[1] = w[i - 3];
+        temp[2] = w[i - 2];
+        temp[3] = w[i - 1];
+
+        if (i % 16 === 0) {
+          const t = temp[0];
+          temp[0] = SBOX[temp[1]] ^ rcon;
+          temp[1] = SBOX[temp[2]];
+          temp[2] = SBOX[temp[3]];
+          temp[3] = SBOX[t];
+          rcon = gfMul(rcon, 2);
+        }
+
+        for (let j = 0; j < 4; j++) {
+          w[i + j] = w[i - 16 + j] ^ temp[j];
+        }
+      }
+
+      return w;
+    }
+
+    function addRoundKey(s, w, round) {
+      for (let i = 0; i < 16; i++) s[i] ^= w[round * 16 + i];
+    }
+
+    function subBytes(s) { for (let i = 0; i < 16; i++) s[i] = SBOX[s[i]]; }
+    function invSubBytes(s) { for (let i = 0; i < 16; i++) s[i] = INV_SBOX[s[i]]; }
+
+    function shiftRows(s) {
+      const t = s.slice();
+      for (let r = 0; r < 4; r++) {
+        for (let c = 0; c < 4; c++) s[r + 4 * c] = t[r + 4 * ((c + r) & 3)];
+      }
+    }
+
+    function invShiftRows(s) {
+      const t = s.slice();
+      for (let r = 0; r < 4; r++) {
+        for (let c = 0; c < 4; c++) s[r + 4 * c] = t[r + 4 * ((c - r + 4) & 3)];
+      }
+    }
+
+    function mixColumns(s) {
+      for (let c = 0; c < 4; c++) {
+        const i = 4 * c;
+        const a0 = s[i], a1 = s[i+1], a2 = s[i+2], a3 = s[i+3];
+        s[i]   = gfMul(a0,2) ^ gfMul(a1,3) ^ a2 ^ a3;
+        s[i+1] = a0 ^ gfMul(a1,2) ^ gfMul(a2,3) ^ a3;
+        s[i+2] = a0 ^ a1 ^ gfMul(a2,2) ^ gfMul(a3,3);
+        s[i+3] = gfMul(a0,3) ^ a1 ^ a2 ^ gfMul(a3,2);
+      }
+    }
+
+    function invMixColumns(s) {
+      for (let c = 0; c < 4; c++) {
+        const i = 4 * c;
+        const a0 = s[i], a1 = s[i+1], a2 = s[i+2], a3 = s[i+3];
+        s[i]   = gfMul(a0,14) ^ gfMul(a1,11) ^ gfMul(a2,13) ^ gfMul(a3,9);
+        s[i+1] = gfMul(a0,9) ^ gfMul(a1,14) ^ gfMul(a2,11) ^ gfMul(a3,13);
+        s[i+2] = gfMul(a0,13) ^ gfMul(a1,9) ^ gfMul(a2,14) ^ gfMul(a3,11);
+        s[i+3] = gfMul(a0,11) ^ gfMul(a1,13) ^ gfMul(a2,9) ^ gfMul(a3,14);
+      }
+    }
+
+    function aesEncryptBlock(key, input) {
+      const s = Uint8Array.from(input);
+      const w = keyExpansion(key);
+
+      addRoundKey(s, w, 0);
+      for (let r = 1; r <= 9; r++) {
+        subBytes(s);
+        shiftRows(s);
+        mixColumns(s);
+        addRoundKey(s, w, r);
+      }
+      subBytes(s);
+      shiftRows(s);
+      addRoundKey(s, w, 10);
+      return s;
+    }
+
+    function aesDecryptBlock(key, input) {
+      const s = Uint8Array.from(input);
+      const w = keyExpansion(key);
+
+      addRoundKey(s, w, 10);
+      for (let r = 9; r >= 1; r--) {
+        invShiftRows(s);
+        invSubBytes(s);
+        addRoundKey(s, w, r);
+        invMixColumns(s);
+      }
+      invShiftRows(s);
+      invSubBytes(s);
+      addRoundKey(s, w, 0);
+      return s;
+    }
+
+    function xorBytes(a, b) {
+      const out = new Uint8Array(a.length);
+      for (let i = 0; i < a.length; i++) out[i] = a[i] ^ b[i];
+      return out;
+    }
+
+    function leftShift128(input) {
+      const out = new Uint8Array(16);
+      let carry = 0;
+      for (let i = 15; i >= 0; i--) {
+        const nextCarry = (input[i] & 0x80) ? 1 : 0;
+        out[i] = ((input[i] << 1) & 0xff) | carry;
+        carry = nextCarry;
+      }
+      return out;
+    }
+
+    function aesCmac(key, message) {
+      const L = aesEncryptBlock(key, new Uint8Array(16));
+      let K1 = leftShift128(L);
+      if (L[0] & 0x80) K1[15] ^= 0x87;
+
+      let K2 = leftShift128(K1);
+      if (K1[0] & 0x80) K2[15] ^= 0x87;
+
+      const n = message.length === 0 ? 1 : Math.ceil(message.length / 16);
+      const complete = message.length !== 0 && message.length % 16 === 0;
+      let last;
+
+      if (complete) {
+        last = xorBytes(message.slice(16 * (n - 1), 16 * n), K1);
+      } else {
+        const block = new Uint8Array(16);
+        const lastLen = message.length === 0 ? 0 : message.length % 16;
+        if (lastLen > 0) block.set(message.slice(16 * (n - 1)));
+        block[lastLen] = 0x80;
+        last = xorBytes(block, K2);
+      }
+
+      let X = new Uint8Array(16);
+      for (let blockIdx = 0; blockIdx < n - 1; blockIdx++) {
+        X = aesEncryptBlock(key, xorBytes(X, message.slice(16 * blockIdx, 16 * blockIdx + 16)));
+      }
+
+      return aesEncryptBlock(key, xorBytes(X, last));
+    }
+
+    function tunCmacMake(cmacFull) {
+      const out = new Uint8Array(8);
+      for (let i = 0; i < 8; i++) out[i] = cmacFull[14 - (i * 2)];
+      return out;
+    }
+
+    function isValidTunPlain(plain) {
+      return plain.length === 16 &&
+        plain[7] === 0x00 &&
+        plain[12] === 0x00 && plain[13] === 0x00 && plain[14] === 0x00 && plain[15] === 0x00;
+    }
+
+    function readCounterPlusOne(rc) {
+      const out = Uint8Array.from(rc);
+      if (out[0] < 0xff) out[0]++;
+      else {
+        out[0] = 0;
+        if (out[1] < 0xff) out[1]++;
+        else {
+          out[1] = 0;
+          if (out[2] < 0xff) out[2]++;
+          else {
+            out[2] = 0;
+            if (out[3] < 0xff) out[3]++;
+            else out.fill(0);
+          }
+        }
+      }
+      return out;
+    }
+
+    function verifyCore(fields, key) {
+      const decryptRaw = aesDecryptBlock(key, fields.enc);
+      const decryptRev = aesDecryptBlock(key, reverseBytes(fields.enc));
+
+      let plain;
+      let reverseMode = false;
+
+      if (isValidTunPlain(decryptRaw)) {
+        plain = decryptRaw;
+      } else if (isValidTunPlain(decryptRev)) {
+        plain = decryptRev;
+        reverseMode = true;
+      } else {
+        throw new Error('AES decrypt result is invalid. Check KEY1, ENC value, or tag read timing.');
+      }
+
+      const calcEncInternal = aesEncryptBlock(key, plain);
+      const calcEnc = reverseMode ? reverseBytes(calcEncInternal) : calcEncInternal;
+      const encPass = equalBytes(calcEnc, fields.enc);
+
+      const cmacInput = new Uint8Array(23);
+      for (let i = 0; i < 16; i++) cmacInput[i] = fields.enc[15 - i];
+      for (let i = 0; i < 4; i++) cmacInput[16 + i] = fields.gid[3 - i];
+      for (let i = 0; i < 3; i++) cmacInput[20 + i] = fields.tt[2 - i];
+
+      const cmacFull = aesCmac(key, cmacInput);
+      const calcCmac = tunCmacMake(cmacFull);
+      const cmacPass = equalBytes(calcCmac, fields.cmac);
+
+      const uid = plain.slice(0, 7);
+      const readCntMinusOne = plain.slice(8, 12);
+      const readCounter = readCounterPlusOne(readCntMinusOne);
+      const readCounterDisplay = reverseBytes(readCounter);
+
+      return { calcEnc, encPass, calcCmac, cmacPass, uid, readCounterDisplay };
+    }
+
+    function verifyTun() {
+      try {
+        hideError();
+        clearResult();
+
+        const input = $('urlInput').value.trim();
+        if (!input) throw new Error('Input URL or Payload HEX is empty.');
+
+        const fields = parseTunFields(input);
+        const key = hexToBytesExact($('keyInput').value, 16);
+        const result = verifyCore(fields, key);
+
+        setText('inputEnc', bytesToHex(fields.enc));
+        setText('inputGid', bytesToHex(fields.gid));
+        setText('inputTt', bytesToHex(fields.tt));
+        setText('inputCmac', bytesToHex(fields.cmac));
+
+        setText('verifyInputEnc', bytesToHex(fields.enc));
+        setText('calcEnc', bytesToHex(result.calcEnc));
+        setText('encCompare', result.encPass ? 'PASS' : 'FAIL', result.encPass ? 'pass' : 'fail');
+
+        setText('verifyInputCmac', bytesToHex(fields.cmac));
+        setText('calcCmac', bytesToHex(result.calcCmac));
+        setText('cmacCompare', result.cmacPass ? 'PASS' : 'FAIL', result.cmacPass ? 'pass' : 'fail');
+
+        setText('uidOut', bytesToHex(result.uid));
+        setText('readCounterOut', bytesToHex(result.readCounterDisplay));
+
+        setStatus(result.encPass, result.cmacPass, result.encPass && result.cmacPass);
+      } catch (e) {
+        showError(e.message || String(e));
+      }
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      const href = window.location.href;
+      if (href.match(/enc=%?[0-9a-fA-F]{32}/i) && href.match(/gid=%?[0-9a-fA-F]{8}/i)) {
+        $('urlInput').value = href;
+        setTimeout(verifyTun, 100);
+      }
+    });
+  </script>
+</body>
+</html>
