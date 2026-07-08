@@ -336,9 +336,9 @@
         <div class="card-header">Input</div>
         <div class="card-body">
           <div class="form-row">
-            <label for="urlInput">NFC Value URL 또는 Payload HEX</label>
+            <label for="urlInput">NFC Value URL or Payload HEX</label>
             <textarea id="urlInput" spellcheck="false" placeholder="https://www.dev.url.nedges.com/tun?enc=...&gid=...&TT=...&CMAC=..."></textarea>
-            <div class="hint">스마트폰에서 NFC URL을 복사해서 붙여넣거나, Payload HEX의 0xNN 리스트를 그대로 붙여넣어도 돼.</div>
+            <div class="hint">Paste the NFC URL copied from your smartphone, or paste the Payload HEX 0xNN list directly.</div>
           </div>
 
           <div class="form-row">
@@ -354,7 +354,7 @@
 
           <div id="errorBox" class="error"></div>
           <div class="footer-note">
-            이 페이지는 서버로 데이터를 보내지 않고 브라우저 안에서만 계산한다. NFC 태그 URL이 이 웹페이지 주소로 연결되면, 주소창의 enc/gid/TT/CMAC 값을 자동으로 읽어서 검증할 수 있다.
+            This page runs entirely in the browser and does not send data to any server. When the NFC tag URL points to this web page, enc/gid/TT/CMAC values in the address bar are parsed automatically.
           </div>
         </div>
       </section>
