@@ -1,9 +1,9 @@
 <!doctype html>
-<html lang="en">
+<html lang="ko">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>TUN Verification Tool</title>
+  <title>3ALOGICS TUN URL Verification Tool</title>
   <style>
     :root {
       --bg: #08090d;
@@ -51,49 +51,43 @@
     }
 
     .brand-logo {
-      display: flex;
+      min-width: 150px;
+      height: 46px;
+      display: inline-flex;
       align-items: center;
       justify-content: center;
-      flex: 0 0 auto;
-      padding: 6px 4px 6px 0;
+      color: white;
+      letter-spacing: 1.6px;
+      font-weight: 900;
+      font-size: 24px;
+      border: 1px solid rgba(255,255,255,0.18);
+      border-radius: 14px;
+      background:
+        linear-gradient(135deg, rgba(255,255,255,0.16), rgba(255,255,255,0.02)),
+        rgba(255,255,255,0.03);
+      box-shadow:
+        0 0 18px rgba(255,255,255,0.10),
+        inset 0 1px 0 rgba(255,255,255,0.18);
+      text-shadow: 0 0 14px rgba(255,255,255,0.34);
     }
 
-    .brand-logo img {
-      display: block;
-      height: 58px;
-      width: auto;
-      object-fit: contain;
-      filter: drop-shadow(0 6px 20px rgba(255,255,255,0.10));
-    }
+    .brand-logo .three { color: #ffffff; margin-right: 2px; }
+    .brand-logo .a { color: #ffffff; margin-right: 2px; }
+    .brand-logo .logic { color: rgba(255,255,255,0.88); }
 
     .title-wrap { min-width: 0; }
 
     .title {
-      font-size: clamp(24px, 4.2vw, 36px);
-      font-weight: 900;
-      line-height: 1.08;
+      font-size: clamp(22px, 4vw, 34px);
+      font-weight: 800;
+      line-height: 1.1;
       margin: 0;
-      letter-spacing: 0.1px;
     }
 
     .subtitle {
-      color: rgba(255,255,255,0.86);
-      margin-top: 8px;
-      font-size: 14px;
-      font-weight: 600;
-      letter-spacing: 0.15px;
-    }
-
-    .meta-line {
-      margin-top: 8px;
       color: var(--muted);
-      font-size: 13px;
-      line-height: 1.5;
-    }
-
-    .meta-line strong {
-      color: rgba(255,255,255,0.92);
-      font-weight: 700;
+      margin-top: 7px;
+      font-size: 14px;
     }
 
     .page {
@@ -316,49 +310,9 @@
       margin-top: 18px;
     }
 
-
-    .tabs {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-bottom: 18px;
-    }
-
-    .tab-button {
-      background: rgba(255,255,255,0.06);
-      border: 1px solid rgba(255,255,255,0.14);
-      color: rgba(255,255,255,0.86);
-      padding: 12px 16px;
-      border-radius: 999px;
-      box-shadow: none;
-    }
-
-    .tab-button.active {
-      background: linear-gradient(135deg, #4776ff, #73a4ff);
-      border-color: rgba(138,180,255,0.72);
-      color: #ffffff;
-      box-shadow: 0 10px 26px rgba(71,118,255,0.25);
-    }
-
-    .tab-panel { display: none; }
-    .tab-panel.active { display: block; }
-
-    .output-box {
-      min-height: 48px;
-      border: 1px solid rgba(255,255,255,0.10);
-      background: rgba(0,0,0,0.22);
-      border-radius: 12px;
-      padding: 12px 13px;
-      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-      word-break: break-all;
-      color: #f8fbff;
-    }
-
-
     @media (max-width: 520px) {
-      .hero-inner { align-items: flex-start; flex-direction: column; gap: 10px; }
-      .brand-logo img { height: 48px; }
-      .title { font-size: 28px; }
+      .hero-inner { align-items: flex-start; flex-direction: column; gap: 12px; }
+      .brand-logo { min-width: 136px; height: 42px; font-size: 21px; }
       .kv { grid-template-columns: 1fr; gap: 2px; }
     }
   </style>
@@ -366,37 +320,25 @@
 <body>
   <header class="hero">
     <div class="hero-inner">
-      <div class="brand-logo" aria-label="3ALogics logo">
-        <img src="data:image/png;base64,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" alt="3ALogics logo" />
+      <div class="brand-logo" aria-label="3ALOGICS logo">
+        <span class="three">3</span><span class="a">A</span><span class="logic">LOGICS</span>
       </div>
       <div class="title-wrap">
-        <h1 class="title">TUN Verification Tool</h1>
-        <div class="subtitle">AES-128 · AES-CMAC · TUN Verification Workspace</div>
-        <div class="meta-line"><strong>Version</strong> 1.0 &nbsp;·&nbsp; <strong>Designer</strong> Hajoong Kim &nbsp;·&nbsp; <strong>Team</strong> SoC Digital Team &nbsp;·&nbsp; <strong>Company</strong> 3ALogics</div>
+        <h1 class="title">TUN URL Verification Tool</h1>
+        <div class="subtitle">ASCII_ENC=1 · ENC / CMAC Verification · UID / ReadCounter Decryption</div>
       </div>
     </div>
   </header>
 
   <main class="page">
-    <div class="tabs">
-      <button id="tabBtnTun" class="tab-button active" onclick="switchTab('tun')">TUN VERIFY</button>
-      <button id="tabBtnAes" class="tab-button" onclick="switchTab('aes')">AES-128</button>
-      <button id="tabBtnCmac" class="tab-button" onclick="switchTab('cmac')">AES-CMAC</button>
-    </div>
-
-    <section id="tabTun" class="tab-panel active">
-      <div class="grid">
+    <div class="grid">
       <section class="card">
         <div class="card-header">Input</div>
         <div class="card-body">
           <div class="form-row">
             <label for="urlInput">NFC Value URL or Payload HEX</label>
             <textarea id="urlInput" spellcheck="false" placeholder="https://www.dev.url.nedges.com/tun?enc=...&gid=...&TT=...&CMAC=..."></textarea>
-          </div>
-
-          <div class="form-row">
-            <label for="gidInput">GID 4B HEX</label>
-            <input id="gidInput" value="55443322" spellcheck="false" />
+            <div class="hint">Paste the NFC URL copied from your smartphone, or paste the Payload HEX 0xNN list directly.</div>
           </div>
 
           <div class="form-row">
@@ -411,6 +353,9 @@
           </div>
 
           <div id="errorBox" class="error"></div>
+          <div class="footer-note">
+            This page runs entirely in the browser and does not send data to any server. When the NFC tag URL points to this web page, enc/gid/TT/CMAC values in the address bar are parsed automatically.
+          </div>
         </div>
       </section>
 
@@ -448,123 +393,13 @@
           <div id="totalBox" class="total">TOTAL RESULT = -</div>
         </div>
       </section>
-      </div>
-    </section>
-
-    <section id="tabAes" class="tab-panel">
-      <div class="grid">
-        <section class="card">
-          <div class="card-header">AES-128 Input</div>
-          <div class="card-body">
-            <div class="form-row">
-              <label for="aesKeyInput">KEY 16B HEX</label>
-              <input id="aesKeyInput" value="FFEEDDCCBBAA99887766554433221100" spellcheck="false" />
-            </div>
-            <div class="form-row">
-              <label for="aesBlockInput">INPUT BLOCK 16B HEX</label>
-              <input id="aesBlockInput" value="42010203040506000800000000000000" spellcheck="false" />
-            </div>
-            <div class="btn-row">
-              <button class="primary" onclick="aesToolEncrypt()">ENCRYPT</button>
-              <button class="primary" onclick="aesToolDecrypt()">DECRYPT</button>
-              <button class="ghost" onclick="aesToolClear()">CLEAR</button>
-            </div>
-            <div id="aesErrorBox" class="error"></div>
-          </div>
-        </section>
-
-        <section class="card">
-          <div class="card-header">AES-128 Result</div>
-          <div class="card-body">
-            <div class="section">
-              <div class="section-title">AES-128 ECB</div>
-              <div class="kv"><div class="k">KEY</div><div id="aesKeyOut" class="v">-</div></div>
-              <div class="kv"><div class="k">INPUT</div><div id="aesInputOut" class="v">-</div></div>
-              <div class="kv"><div class="k">MODE</div><div id="aesModeOut" class="v">-</div></div>
-              <div class="kv"><div class="k">OUTPUT</div><div id="aesOutputOut" class="v">-</div></div>
-            </div>
-          </div>
-        </section>
-      </div>
-    </section>
-
-    <section id="tabCmac" class="tab-panel">
-      <div class="grid">
-        <section class="card">
-          <div class="card-header">AES-CMAC Input</div>
-          <div class="card-body">
-            <div class="form-row">
-              <label for="cmacKeyInput">KEY 16B HEX</label>
-              <input id="cmacKeyInput" value="FFEEDDCCBBAA99887766554433221100" spellcheck="false" />
-            </div>
-            <div class="form-row">
-              <label for="cmacMessageInput">MESSAGE HEX</label>
-              <textarea id="cmacMessageInput" spellcheck="false" placeholder="BD0BC15FE126B72282AC26C1347ADD1122334455000000"></textarea>
-            </div>
-            <div class="form-row">
-              <label for="cmacExpectedInput">EXPECTED CMAC HEX</label>
-              <input id="cmacExpectedInput" spellcheck="false" />
-            </div>
-            <div class="btn-row">
-              <button class="primary" onclick="cmacToolGenerate()">GENERATE</button>
-              <button class="primary" onclick="cmacToolVerify()">VERIFY</button>
-              <button class="ghost" onclick="cmacToolClear()">CLEAR</button>
-            </div>
-            <div id="cmacErrorBox" class="error"></div>
-          </div>
-        </section>
-
-        <section class="card">
-          <div class="card-header">AES-CMAC Result</div>
-          <div class="card-body">
-            <div class="section">
-              <div class="section-title">AES-CMAC</div>
-              <div class="kv"><div class="k">KEY</div><div id="cmacKeyOut" class="v">-</div></div>
-              <div class="kv"><div class="k">MESSAGE</div><div id="cmacMsgOut" class="v">-</div></div>
-              <div class="kv"><div class="k">CMAC FULL</div><div id="cmacFullOut" class="v">-</div></div>
-              <div class="kv"><div class="k">TUN CMAC</div><div id="cmacTunOut" class="v">-</div></div>
-              <div class="kv"><div class="k">COMPARE</div><div id="cmacToolCompareOut" class="v">-</div></div>
-            </div>
-          </div>
-        </section>
-      </div>
-    </section>
+    </div>
   </main>
 
   <script>
     const DEFAULT_SAMPLE = 'https://www.dev.url.nedges.com/tun?enc=4A4914EE0821BDD6B62FE87184597C0D&gid=55443322&TT=000000&CMAC=7B5E705CF37351FC';
 
     function $(id) { return document.getElementById(id); }
-
-    function switchTab(name) {
-      const tabs = ['Tun', 'Aes', 'Cmac'];
-      tabs.forEach(t => {
-        $('tab' + t).classList.remove('active');
-        $('tabBtn' + t).classList.remove('active');
-      });
-      const cap = name.charAt(0).toUpperCase() + name.slice(1);
-      $('tab' + cap).classList.add('active');
-      $('tabBtn' + cap).classList.add('active');
-    }
-
-    function showBoxError(id, msg) {
-      const box = $(id);
-      box.textContent = msg;
-      box.style.display = 'block';
-    }
-
-    function hideBoxError(id) {
-      const box = $(id);
-      box.textContent = '';
-      box.style.display = 'none';
-    }
-
-    function setToolText(id, value, cls) {
-      const el = $(id);
-      el.textContent = value;
-      el.className = 'v' + (cls ? ' ' + cls : '');
-    }
-
 
     function showError(msg) {
       const box = $('errorBox');
@@ -617,7 +452,6 @@
 
     function loadSample() {
       $('urlInput').value = DEFAULT_SAMPLE;
-      $('gidInput').value = '55443322';
       verifyTun();
     }
 
@@ -671,12 +505,13 @@
     function parseTunFields(input) {
       const tryParse = (text) => {
         const enc = extractHexField(text, 'enc', 32);
+        const gid = extractHexField(text, 'gid', 8);
         const tt = extractHexField(text, 'TT', 6);
         const cmac = extractHexField(text, 'CMAC', 16);
-        if (!enc || !tt || !cmac) return null;
+        if (!enc || !gid || !tt || !cmac) return null;
         return {
           enc: hexToBytesExact(enc, 16),
-          gid: new Uint8Array(4),
+          gid: hexToBytesExact(gid, 4),
           tt: hexToBytesExact(tt, 3),
           cmac: hexToBytesExact(cmac, 8)
         };
@@ -688,7 +523,7 @@
       parsed = tryParse(payloadHexToAscii(input));
       if (parsed) return parsed;
 
-      throw new Error('Parse failed. Need enc=32hex, TT=6hex, CMAC=16hex. GID is entered manually.');
+      throw new Error('Parse failed. Need enc=32hex, gid=8hex, TT=6hex, CMAC=16hex.');
     }
 
     function gfMul(a, b) {
@@ -955,7 +790,6 @@
         if (!input) throw new Error('Input URL or Payload HEX is empty.');
 
         const fields = parseTunFields(input);
-        fields.gid = hexToBytesExact($('gidInput').value, 4);
         const key = hexToBytesExact($('keyInput').value, 16);
         const result = verifyCore(fields, key);
 
@@ -981,115 +815,9 @@
       }
     }
 
-
-
-    function hexToBytesAny(input) {
-      const clean = input.replace(/[^0-9a-fA-F]/g, '');
-      if (clean.length === 0) return new Uint8Array(0);
-      if (clean.length % 2 !== 0) throw new Error('HEX length must be even.');
-      const out = new Uint8Array(clean.length / 2);
-      for (let i = 0; i < out.length; i++) {
-        out[i] = parseInt(clean.slice(i * 2, i * 2 + 2), 16);
-      }
-      return out;
-    }
-
-    function aesToolResetResult() {
-      ['aesKeyOut', 'aesInputOut', 'aesModeOut', 'aesOutputOut'].forEach(id => setToolText(id, '-'));
-    }
-
-    function aesToolRun(mode) {
-      try {
-        hideBoxError('aesErrorBox');
-        const key = hexToBytesExact($('aesKeyInput').value, 16);
-        const input = hexToBytesExact($('aesBlockInput').value, 16);
-        const output = mode === 'encrypt' ? aesEncryptBlock(key, input) : aesDecryptBlock(key, input);
-
-        setToolText('aesKeyOut', bytesToHex(key));
-        setToolText('aesInputOut', bytesToHex(input));
-        setToolText('aesModeOut', mode === 'encrypt' ? 'ENCRYPT' : 'DECRYPT');
-        setToolText('aesOutputOut', bytesToHex(output));
-      } catch (e) {
-        showBoxError('aesErrorBox', e.message || String(e));
-      }
-    }
-
-    function aesToolEncrypt() { aesToolRun('encrypt'); }
-    function aesToolDecrypt() { aesToolRun('decrypt'); }
-
-    function aesToolClear() {
-      $('aesBlockInput').value = '';
-      hideBoxError('aesErrorBox');
-      aesToolResetResult();
-    }
-
-    function cmacToolResetResult() {
-      ['cmacKeyOut', 'cmacMsgOut', 'cmacFullOut', 'cmacTunOut', 'cmacToolCompareOut'].forEach(id => setToolText(id, '-'));
-    }
-
-    function cmacToolCalculate() {
-      const key = hexToBytesExact($('cmacKeyInput').value, 16);
-      const msg = hexToBytesAny($('cmacMessageInput').value);
-      const full = aesCmac(key, msg);
-      const tun = tunCmacMake(full);
-      return { key, msg, full, tun };
-    }
-
-    function cmacToolGenerate() {
-      try {
-        hideBoxError('cmacErrorBox');
-        const r = cmacToolCalculate();
-        setToolText('cmacKeyOut', bytesToHex(r.key));
-        setToolText('cmacMsgOut', bytesToHex(r.msg));
-        setToolText('cmacFullOut', bytesToHex(r.full));
-        setToolText('cmacTunOut', bytesToHex(r.tun));
-        setToolText('cmacToolCompareOut', '-');
-      } catch (e) {
-        showBoxError('cmacErrorBox', e.message || String(e));
-      }
-    }
-
-    function cmacToolVerify() {
-      try {
-        hideBoxError('cmacErrorBox');
-        const r = cmacToolCalculate();
-        const expectedClean = $('cmacExpectedInput').value.replace(/[^0-9a-fA-F]/g, '');
-        if (expectedClean.length !== 32 && expectedClean.length !== 16) {
-          throw new Error('EXPECTED CMAC must be 16 hex chars for TUN CMAC or 32 hex chars for CMAC FULL.');
-        }
-
-        const expected = hexToBytesAny(expectedClean);
-        let pass;
-        let mode;
-        if (expected.length === 16) {
-          pass = equalBytes(expected, r.full);
-          mode = 'FULL';
-        } else {
-          pass = equalBytes(expected, r.tun);
-          mode = 'TUN';
-        }
-
-        setToolText('cmacKeyOut', bytesToHex(r.key));
-        setToolText('cmacMsgOut', bytesToHex(r.msg));
-        setToolText('cmacFullOut', bytesToHex(r.full));
-        setToolText('cmacTunOut', bytesToHex(r.tun));
-        setToolText('cmacToolCompareOut', `${mode} ${pass ? 'PASS' : 'FAIL'}`, pass ? 'pass' : 'fail');
-      } catch (e) {
-        showBoxError('cmacErrorBox', e.message || String(e));
-      }
-    }
-
-    function cmacToolClear() {
-      $('cmacMessageInput').value = '';
-      $('cmacExpectedInput').value = '';
-      hideBoxError('cmacErrorBox');
-      cmacToolResetResult();
-    }
-
-
     window.addEventListener('DOMContentLoaded', () => {
       const href = window.location.href;
-      if (href.match(/enc=%?[0-9a-fA-F]{32}/i) && href.match(/CMAC=%?[0-9a-fA-F]{16}/i)) {
+      if (href.match(/enc=%?[0-9a-fA-F]{32}/i) && href.match(/gid=%?[0-9a-fA-F]{8}/i)) {
         $('urlInput').value = href;
         setTimeout(verifyTun, 100);
       }
