@@ -1,9 +1,9 @@
 <!doctype html>
-<html lang="ko">
+<html lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>3ALOGICS TUN URL Verification Tool</title>
+  <title>3ALOGICS Crypto Verification Tool</title>
   <style>
     :root {
       --bg: #08090d;
@@ -310,6 +310,45 @@
       margin-top: 18px;
     }
 
+
+    .tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 18px;
+    }
+
+    .tab-button {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.14);
+      color: rgba(255,255,255,0.86);
+      padding: 12px 16px;
+      border-radius: 999px;
+      box-shadow: none;
+    }
+
+    .tab-button.active {
+      background: linear-gradient(135deg, #4776ff, #73a4ff);
+      border-color: rgba(138,180,255,0.72);
+      color: #ffffff;
+      box-shadow: 0 10px 26px rgba(71,118,255,0.25);
+    }
+
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; }
+
+    .output-box {
+      min-height: 48px;
+      border: 1px solid rgba(255,255,255,0.10);
+      background: rgba(0,0,0,0.22);
+      border-radius: 12px;
+      padding: 12px 13px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      word-break: break-all;
+      color: #f8fbff;
+    }
+
+
     @media (max-width: 520px) {
       .hero-inner { align-items: flex-start; flex-direction: column; gap: 12px; }
       .brand-logo { min-width: 136px; height: 42px; font-size: 21px; }
@@ -331,14 +370,25 @@
   </header>
 
   <main class="page">
-    <div class="grid">
+    <div class="tabs">
+      <button id="tabBtnTun" class="tab-button active" onclick="switchTab('tun')">TUN VERIFY</button>
+      <button id="tabBtnAes" class="tab-button" onclick="switchTab('aes')">AES-128</button>
+      <button id="tabBtnCmac" class="tab-button" onclick="switchTab('cmac')">AES-CMAC</button>
+    </div>
+
+    <section id="tabTun" class="tab-panel active">
+      <div class="grid">
       <section class="card">
         <div class="card-header">Input</div>
         <div class="card-body">
           <div class="form-row">
             <label for="urlInput">NFC Value URL or Payload HEX</label>
             <textarea id="urlInput" spellcheck="false" placeholder="https://www.dev.url.nedges.com/tun?enc=...&gid=...&TT=...&CMAC=..."></textarea>
-            <div class="hint">Paste the NFC URL copied from your smartphone, or paste the Payload HEX 0xNN list directly.</div>
+          </div>
+
+          <div class="form-row">
+            <label for="gidInput">GID 4B HEX</label>
+            <input id="gidInput" value="55443322" spellcheck="false" />
           </div>
 
           <div class="form-row">
@@ -353,9 +403,6 @@
           </div>
 
           <div id="errorBox" class="error"></div>
-          <div class="footer-note">
-            This page runs entirely in the browser and does not send data to any server. When the NFC tag URL points to this web page, enc/gid/TT/CMAC values in the address bar are parsed automatically.
-          </div>
         </div>
       </section>
 
@@ -393,13 +440,123 @@
           <div id="totalBox" class="total">TOTAL RESULT = -</div>
         </div>
       </section>
-    </div>
+      </div>
+    </section>
+
+    <section id="tabAes" class="tab-panel">
+      <div class="grid">
+        <section class="card">
+          <div class="card-header">AES-128 Input</div>
+          <div class="card-body">
+            <div class="form-row">
+              <label for="aesKeyInput">KEY 16B HEX</label>
+              <input id="aesKeyInput" value="FFEEDDCCBBAA99887766554433221100" spellcheck="false" />
+            </div>
+            <div class="form-row">
+              <label for="aesBlockInput">INPUT BLOCK 16B HEX</label>
+              <input id="aesBlockInput" value="42010203040506000800000000000000" spellcheck="false" />
+            </div>
+            <div class="btn-row">
+              <button class="primary" onclick="aesToolEncrypt()">ENCRYPT</button>
+              <button class="primary" onclick="aesToolDecrypt()">DECRYPT</button>
+              <button class="ghost" onclick="aesToolClear()">CLEAR</button>
+            </div>
+            <div id="aesErrorBox" class="error"></div>
+          </div>
+        </section>
+
+        <section class="card">
+          <div class="card-header">AES-128 Result</div>
+          <div class="card-body">
+            <div class="section">
+              <div class="section-title">AES-128 ECB</div>
+              <div class="kv"><div class="k">KEY</div><div id="aesKeyOut" class="v">-</div></div>
+              <div class="kv"><div class="k">INPUT</div><div id="aesInputOut" class="v">-</div></div>
+              <div class="kv"><div class="k">MODE</div><div id="aesModeOut" class="v">-</div></div>
+              <div class="kv"><div class="k">OUTPUT</div><div id="aesOutputOut" class="v">-</div></div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </section>
+
+    <section id="tabCmac" class="tab-panel">
+      <div class="grid">
+        <section class="card">
+          <div class="card-header">AES-CMAC Input</div>
+          <div class="card-body">
+            <div class="form-row">
+              <label for="cmacKeyInput">KEY 16B HEX</label>
+              <input id="cmacKeyInput" value="FFEEDDCCBBAA99887766554433221100" spellcheck="false" />
+            </div>
+            <div class="form-row">
+              <label for="cmacMessageInput">MESSAGE HEX</label>
+              <textarea id="cmacMessageInput" spellcheck="false" placeholder="BD0BC15FE126B72282AC26C1347ADD1122334455000000"></textarea>
+            </div>
+            <div class="form-row">
+              <label for="cmacExpectedInput">EXPECTED CMAC HEX</label>
+              <input id="cmacExpectedInput" spellcheck="false" />
+            </div>
+            <div class="btn-row">
+              <button class="primary" onclick="cmacToolGenerate()">GENERATE</button>
+              <button class="primary" onclick="cmacToolVerify()">VERIFY</button>
+              <button class="ghost" onclick="cmacToolClear()">CLEAR</button>
+            </div>
+            <div id="cmacErrorBox" class="error"></div>
+          </div>
+        </section>
+
+        <section class="card">
+          <div class="card-header">AES-CMAC Result</div>
+          <div class="card-body">
+            <div class="section">
+              <div class="section-title">AES-CMAC</div>
+              <div class="kv"><div class="k">KEY</div><div id="cmacKeyOut" class="v">-</div></div>
+              <div class="kv"><div class="k">MESSAGE</div><div id="cmacMsgOut" class="v">-</div></div>
+              <div class="kv"><div class="k">CMAC FULL</div><div id="cmacFullOut" class="v">-</div></div>
+              <div class="kv"><div class="k">TUN CMAC</div><div id="cmacTunOut" class="v">-</div></div>
+              <div class="kv"><div class="k">COMPARE</div><div id="cmacToolCompareOut" class="v">-</div></div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </section>
   </main>
 
   <script>
     const DEFAULT_SAMPLE = 'https://www.dev.url.nedges.com/tun?enc=4A4914EE0821BDD6B62FE87184597C0D&gid=55443322&TT=000000&CMAC=7B5E705CF37351FC';
 
     function $(id) { return document.getElementById(id); }
+
+    function switchTab(name) {
+      const tabs = ['Tun', 'Aes', 'Cmac'];
+      tabs.forEach(t => {
+        $('tab' + t).classList.remove('active');
+        $('tabBtn' + t).classList.remove('active');
+      });
+      const cap = name.charAt(0).toUpperCase() + name.slice(1);
+      $('tab' + cap).classList.add('active');
+      $('tabBtn' + cap).classList.add('active');
+    }
+
+    function showBoxError(id, msg) {
+      const box = $(id);
+      box.textContent = msg;
+      box.style.display = 'block';
+    }
+
+    function hideBoxError(id) {
+      const box = $(id);
+      box.textContent = '';
+      box.style.display = 'none';
+    }
+
+    function setToolText(id, value, cls) {
+      const el = $(id);
+      el.textContent = value;
+      el.className = 'v' + (cls ? ' ' + cls : '');
+    }
+
 
     function showError(msg) {
       const box = $('errorBox');
@@ -452,6 +609,7 @@
 
     function loadSample() {
       $('urlInput').value = DEFAULT_SAMPLE;
+      $('gidInput').value = '55443322';
       verifyTun();
     }
 
@@ -505,13 +663,12 @@
     function parseTunFields(input) {
       const tryParse = (text) => {
         const enc = extractHexField(text, 'enc', 32);
-        const gid = extractHexField(text, 'gid', 8);
         const tt = extractHexField(text, 'TT', 6);
         const cmac = extractHexField(text, 'CMAC', 16);
-        if (!enc || !gid || !tt || !cmac) return null;
+        if (!enc || !tt || !cmac) return null;
         return {
           enc: hexToBytesExact(enc, 16),
-          gid: hexToBytesExact(gid, 4),
+          gid: new Uint8Array(4),
           tt: hexToBytesExact(tt, 3),
           cmac: hexToBytesExact(cmac, 8)
         };
@@ -523,7 +680,7 @@
       parsed = tryParse(payloadHexToAscii(input));
       if (parsed) return parsed;
 
-      throw new Error('Parse failed. Need enc=32hex, gid=8hex, TT=6hex, CMAC=16hex.');
+      throw new Error('Parse failed. Need enc=32hex, TT=6hex, CMAC=16hex. GID is entered manually.');
     }
 
     function gfMul(a, b) {
@@ -790,6 +947,7 @@
         if (!input) throw new Error('Input URL or Payload HEX is empty.');
 
         const fields = parseTunFields(input);
+        fields.gid = hexToBytesExact($('gidInput').value, 4);
         const key = hexToBytesExact($('keyInput').value, 16);
         const result = verifyCore(fields, key);
 
@@ -815,9 +973,115 @@
       }
     }
 
+
+
+    function hexToBytesAny(input) {
+      const clean = input.replace(/[^0-9a-fA-F]/g, '');
+      if (clean.length === 0) return new Uint8Array(0);
+      if (clean.length % 2 !== 0) throw new Error('HEX length must be even.');
+      const out = new Uint8Array(clean.length / 2);
+      for (let i = 0; i < out.length; i++) {
+        out[i] = parseInt(clean.slice(i * 2, i * 2 + 2), 16);
+      }
+      return out;
+    }
+
+    function aesToolResetResult() {
+      ['aesKeyOut', 'aesInputOut', 'aesModeOut', 'aesOutputOut'].forEach(id => setToolText(id, '-'));
+    }
+
+    function aesToolRun(mode) {
+      try {
+        hideBoxError('aesErrorBox');
+        const key = hexToBytesExact($('aesKeyInput').value, 16);
+        const input = hexToBytesExact($('aesBlockInput').value, 16);
+        const output = mode === 'encrypt' ? aesEncryptBlock(key, input) : aesDecryptBlock(key, input);
+
+        setToolText('aesKeyOut', bytesToHex(key));
+        setToolText('aesInputOut', bytesToHex(input));
+        setToolText('aesModeOut', mode === 'encrypt' ? 'ENCRYPT' : 'DECRYPT');
+        setToolText('aesOutputOut', bytesToHex(output));
+      } catch (e) {
+        showBoxError('aesErrorBox', e.message || String(e));
+      }
+    }
+
+    function aesToolEncrypt() { aesToolRun('encrypt'); }
+    function aesToolDecrypt() { aesToolRun('decrypt'); }
+
+    function aesToolClear() {
+      $('aesBlockInput').value = '';
+      hideBoxError('aesErrorBox');
+      aesToolResetResult();
+    }
+
+    function cmacToolResetResult() {
+      ['cmacKeyOut', 'cmacMsgOut', 'cmacFullOut', 'cmacTunOut', 'cmacToolCompareOut'].forEach(id => setToolText(id, '-'));
+    }
+
+    function cmacToolCalculate() {
+      const key = hexToBytesExact($('cmacKeyInput').value, 16);
+      const msg = hexToBytesAny($('cmacMessageInput').value);
+      const full = aesCmac(key, msg);
+      const tun = tunCmacMake(full);
+      return { key, msg, full, tun };
+    }
+
+    function cmacToolGenerate() {
+      try {
+        hideBoxError('cmacErrorBox');
+        const r = cmacToolCalculate();
+        setToolText('cmacKeyOut', bytesToHex(r.key));
+        setToolText('cmacMsgOut', bytesToHex(r.msg));
+        setToolText('cmacFullOut', bytesToHex(r.full));
+        setToolText('cmacTunOut', bytesToHex(r.tun));
+        setToolText('cmacToolCompareOut', '-');
+      } catch (e) {
+        showBoxError('cmacErrorBox', e.message || String(e));
+      }
+    }
+
+    function cmacToolVerify() {
+      try {
+        hideBoxError('cmacErrorBox');
+        const r = cmacToolCalculate();
+        const expectedClean = $('cmacExpectedInput').value.replace(/[^0-9a-fA-F]/g, '');
+        if (expectedClean.length !== 32 && expectedClean.length !== 16) {
+          throw new Error('EXPECTED CMAC must be 16 hex chars for TUN CMAC or 32 hex chars for CMAC FULL.');
+        }
+
+        const expected = hexToBytesAny(expectedClean);
+        let pass;
+        let mode;
+        if (expected.length === 16) {
+          pass = equalBytes(expected, r.full);
+          mode = 'FULL';
+        } else {
+          pass = equalBytes(expected, r.tun);
+          mode = 'TUN';
+        }
+
+        setToolText('cmacKeyOut', bytesToHex(r.key));
+        setToolText('cmacMsgOut', bytesToHex(r.msg));
+        setToolText('cmacFullOut', bytesToHex(r.full));
+        setToolText('cmacTunOut', bytesToHex(r.tun));
+        setToolText('cmacToolCompareOut', `${mode} ${pass ? 'PASS' : 'FAIL'}`, pass ? 'pass' : 'fail');
+      } catch (e) {
+        showBoxError('cmacErrorBox', e.message || String(e));
+      }
+    }
+
+    function cmacToolClear() {
+      $('cmacMessageInput').value = '';
+      $('cmacExpectedInput').value = '';
+      hideBoxError('cmacErrorBox');
+      cmacToolResetResult();
+    }
+
+
     window.addEventListener('DOMContentLoaded', () => {
       const href = window.location.href;
-      if (href.match(/enc=%?[0-9a-fA-F]{32}/i) && href.match(/gid=%?[0-9a-fA-F]{8}/i)) {
+      if (href.match(/enc=%?[0-9a-fA-F]{32}/i) && href.match(/CMAC=%?[0-9a-fA-F]{16}/i)) {
         $('urlInput').value = href;
         setTimeout(verifyTun, 100);
       }
