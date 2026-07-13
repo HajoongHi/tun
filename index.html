@@ -18,9 +18,7 @@
       --yellow: #fdb022;
       --shadow: 0 20px 80px rgba(0,0,0,0.38);
     }
-
     * { box-sizing: border-box; }
-
     body {
       margin: 0;
       min-height: 100vh;
@@ -31,20 +29,18 @@
       color: var(--text);
       font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
     }
-
     .hero {
       background:
         radial-gradient(circle at 82% 20%, rgba(50,213,131,0.12), transparent 22rem),
         linear-gradient(180deg, rgba(4,6,10,0.98), rgba(8,9,13,0.96));
       border-bottom: 1px solid rgba(255,255,255,0.10);
-      padding: 26px 18px 25px;
+      padding: 22px 18px 24px;
       position: sticky;
       top: 0;
       z-index: 10;
       backdrop-filter: blur(14px);
       box-shadow: 0 16px 46px rgba(0,0,0,0.34);
     }
-
     .hero-inner {
       max-width: 1120px;
       margin: 0 auto;
@@ -53,375 +49,72 @@
       align-items: center;
       gap: 26px;
     }
-
-    .brand-area {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-      gap: 9px;
-      min-width: 0;
-    }
-
-    .brand-logo-img {
-      width: 165px;
-      height: auto;
-      display: block;
-      filter: drop-shadow(0 0 10px rgba(255,255,255,0.12));
-    }
-
-    .brand-tagline {
-      color: #8f99aa;
-      font-weight: 900;
-      letter-spacing: 0.2px;
-      font-size: 13px;
-      line-height: 1.15;
-      white-space: nowrap;
-    }
-
-    .brand-logo { display: none; }
-    .brand-logo .three { color: #ffffff; margin-right: 2px; }
-    .brand-logo .a { color: #ffffff; margin-right: 2px; }
-    .brand-logo .logic { color: rgba(255,255,255,0.88); }
-
-    .title-wrap {
-      min-width: 0;
-      padding-left: 2px;
-    }
-
-    .title {
-      font-size: clamp(30px, 4.6vw, 44px);
-      font-weight: 950;
-      letter-spacing: -1.1px;
-      line-height: 0.98;
-      margin: 0;
-      color: #ffffff;
-      text-shadow: 0 12px 34px rgba(0,0,0,0.40);
-    }
-
-    .subtitle {
-      color: #ffffff;
-      margin-top: 8px;
-      font-size: 13px;
-      font-weight: 900;
-      letter-spacing: 0.1px;
-    }
-
-    .header-meta {
-      margin-top: 10px;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 9px;
-      color: rgba(255,255,255,0.76);
-      font-size: 11.5px;
-      font-weight: 700;
-    }
-
-    .header-meta b {
-      color: #ffffff;
-      font-weight: 950;
-    }
-
-    .page {
-      max-width: 1120px;
-      margin: 0 auto;
-      padding: 24px 18px 52px;
-    }
-
-    .grid {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 16px;
-    }
-
-    @media (min-width: 940px) {
-      .grid { grid-template-columns: 0.95fr 1.05fr; }
-    }
-
-    .card {
-      background: linear-gradient(180deg, rgba(255,255,255,0.055), rgba(255,255,255,0.025)), var(--panel);
-      border: 1px solid var(--line);
-      border-radius: 18px;
-      box-shadow: var(--shadow);
-      overflow: hidden;
-    }
-
-    .card-header {
-      padding: 17px 18px;
-      border-bottom: 1px solid var(--line);
-      background: rgba(255,255,255,0.03);
-      font-weight: 800;
-    }
-
-    .card-body { padding: 18px; }
-
-    label {
-      display: block;
-      font-weight: 700;
-      margin-bottom: 8px;
-      color: rgba(255,255,255,0.92);
-    }
-
-    textarea, input {
-      width: 100%;
-      border: 1px solid rgba(255,255,255,0.14);
-      background: rgba(0,0,0,0.30);
-      color: var(--text);
-      border-radius: 12px;
-      padding: 13px 14px;
-      outline: none;
-      font-size: 14px;
-      transition: border-color 0.15s, box-shadow 0.15s;
-    }
-
-    textarea {
-      min-height: 178px;
-      resize: vertical;
-      line-height: 1.55;
-      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-    }
-
-    input { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
-
-    textarea:focus, input:focus {
-      border-color: rgba(138,180,255,0.78);
-      box-shadow: 0 0 0 4px rgba(138,180,255,0.12);
-    }
-
-    .hint {
-      margin-top: 8px;
-      color: var(--muted);
-      font-size: 13px;
-      line-height: 1.45;
-    }
-
-    .form-row { margin-bottom: 16px; }
-
-    .btn-row {
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-      margin-top: 4px;
-    }
-
-    button {
-      border: 0;
-      cursor: pointer;
-      border-radius: 12px;
-      padding: 12px 16px;
-      color: white;
-      font-weight: 800;
-      letter-spacing: 0.2px;
-    }
-
-    .primary {
-      background: linear-gradient(135deg, #4776ff, #73a4ff);
-      box-shadow: 0 10px 26px rgba(71,118,255,0.28);
-      flex: 1 1 150px;
-    }
-
-    .ghost {
-      background: rgba(255,255,255,0.08);
-      border: 1px solid rgba(255,255,255,0.14);
-      color: rgba(255,255,255,0.92);
-    }
-
-    .sample {
-      background: rgba(255,255,255,0.05);
-      color: rgba(255,255,255,0.88);
-      border: 1px solid rgba(255,255,255,0.12);
-    }
-
-    .status-wrap {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-bottom: 16px;
-    }
-
-    .chip {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      border-radius: 999px;
-      padding: 9px 13px;
-      font-weight: 900;
-      font-size: 13px;
-      border: 1px solid transparent;
-    }
-
-    .chip.pass {
-      color: #d9ffe9;
-      background: rgba(50,213,131,0.18);
-      border-color: rgba(50,213,131,0.36);
-    }
-
-    .chip.fail {
-      color: #ffe1e4;
-      background: rgba(255,90,106,0.16);
-      border-color: rgba(255,90,106,0.36);
-    }
-
-    .chip.wait {
-      color: #fff1ce;
-      background: rgba(253,176,34,0.14);
-      border-color: rgba(253,176,34,0.32);
-    }
-
-    .section {
-      background: rgba(0,0,0,0.19);
-      border: 1px solid rgba(255,255,255,0.09);
-      border-radius: 14px;
-      padding: 14px;
-      margin-top: 13px;
-    }
-
-    .section-title {
-      font-weight: 900;
-      margin-bottom: 11px;
-      color: rgba(255,255,255,0.96);
-    }
-
-    .kv {
-      display: grid;
-      grid-template-columns: 145px 1fr;
-      gap: 6px 12px;
-      padding: 6px 0;
-      border-top: 1px dashed rgba(255,255,255,0.08);
-    }
-
-    .kv:first-of-type { border-top: 0; }
-    .k { color: var(--muted); font-weight: 700; }
-    .v {
-      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-      word-break: break-all;
-      color: #f8fbff;
-    }
-
-    .v.pass { color: var(--green); font-weight: 900; font-family: inherit; }
-    .v.fail { color: var(--red); font-weight: 900; font-family: inherit; }
-
-    .error {
-      color: #ffe1e4;
-      border: 1px solid rgba(255,90,106,0.35);
-      background: rgba(255,90,106,0.13);
-      padding: 13px 14px;
-      border-radius: 14px;
-      line-height: 1.5;
-      margin-top: 14px;
-      display: none;
-    }
-
-    .total {
-      margin-top: 14px;
-      padding: 16px;
-      border-radius: 16px;
-      font-weight: 1000;
-      font-size: 20px;
-      text-align: center;
-      border: 1px solid rgba(255,255,255,0.12);
-      background: rgba(255,255,255,0.05);
-    }
-
-    .total.pass {
-      color: #d9ffe9;
-      background: rgba(50,213,131,0.16);
-      border-color: rgba(50,213,131,0.36);
-    }
-
-    .total.fail {
-      color: #ffe1e4;
-      background: rgba(255,90,106,0.14);
-      border-color: rgba(255,90,106,0.36);
-    }
-
-    .footer-note {
-      color: var(--muted);
-      font-size: 12.5px;
-      line-height: 1.5;
-      margin-top: 18px;
-    }
-
-
-
-    .tab-nav {
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-      margin-bottom: 16px;
-    }
-
-    .tab-btn {
-      border: 1px solid rgba(255,255,255,0.14);
-      background: rgba(255,255,255,0.07);
-      color: rgba(255,255,255,0.90);
-      border-radius: 999px;
-      padding: 11px 18px;
-      font-weight: 950;
-      font-size: 13px;
-      box-shadow: none;
-    }
-
-    .tab-btn.active {
-      background: linear-gradient(135deg, #4776ff, #73a4ff);
-      border-color: rgba(138,180,255,0.62);
-      color: #ffffff;
-      box-shadow: 0 10px 26px rgba(71,118,255,0.24);
-    }
-
-    .tab-panel { display: none; }
-    .tab-panel.active { display: block; }
-
-    .aes-layout {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 16px;
-    }
-
-    @media (min-width: 940px) {
-      .aes-layout { grid-template-columns: 1fr 1fr; }
-    }
-
-    .mini-result {
-      min-height: 46px;
-      display: flex;
-      align-items: center;
-      border: 1px solid rgba(255,255,255,0.09);
-      background: rgba(0,0,0,0.19);
-      border-radius: 12px;
-      padding: 13px 14px;
-      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-      word-break: break-all;
-      color: #f8fbff;
-    }
-
-    @media (max-width: 520px) {
-      .hero-inner { grid-template-columns: 1fr; gap: 14px; }
-      .brand-logo-img { width: 148px; }
-      .brand-tagline { font-size: 11.5px; white-space: normal; }
-      .title { font-size: 28px; }
-      .header-meta { gap: 6px; }
-      .kv { grid-template-columns: 1fr; gap: 2px; }
-    }
+    .brand-area { display:flex; flex-direction:column; align-items:flex-start; gap:7px; min-width:0; }
+    .brand-logo-img { width: 215px; height:auto; display:block; }
+    .title-wrap { min-width:0; padding-left:2px; }
+    .title { font-size:clamp(30px,4.6vw,44px); font-weight:950; letter-spacing:-1.1px; line-height:.98; margin:0; color:#fff; text-shadow:0 12px 34px rgba(0,0,0,.4); }
+    .subtitle { color:#fff; margin-top:8px; font-size:13px; font-weight:900; letter-spacing:.1px; }
+    .header-meta { margin-top:10px; display:flex; flex-wrap:wrap; gap:9px; color:rgba(255,255,255,.76); font-size:11.5px; font-weight:700; }
+    .header-meta b { color:#fff; font-weight:950; }
+    .page { max-width:1120px; margin:0 auto; padding:24px 18px 52px; }
+    .grid { display:grid; grid-template-columns:1fr; gap:16px; }
+    @media (min-width:940px) { .grid { grid-template-columns:.95fr 1.05fr; } }
+    .card { background:linear-gradient(180deg,rgba(255,255,255,.055),rgba(255,255,255,.025)),var(--panel); border:1px solid var(--line); border-radius:18px; box-shadow:var(--shadow); overflow:hidden; }
+    .card-header { padding:17px 18px; border-bottom:1px solid var(--line); background:rgba(255,255,255,.03); font-weight:800; }
+    .card-body { padding:18px; }
+    label { display:block; font-weight:700; margin-bottom:8px; color:rgba(255,255,255,.92); }
+    textarea,input,select { width:100%; border:1px solid rgba(255,255,255,.14); background:rgba(0,0,0,.30); color:var(--text); border-radius:12px; padding:13px 14px; outline:none; font-size:14px; transition:border-color .15s,box-shadow .15s; }
+    textarea { min-height:178px; resize:vertical; line-height:1.55; font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace; }
+    input,select { font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace; }
+    textarea:focus,input:focus,select:focus { border-color:rgba(138,180,255,.78); box-shadow:0 0 0 4px rgba(138,180,255,.12); }
+    .hint { margin-top:8px; color:var(--muted); font-size:13px; line-height:1.45; }
+    .form-row { margin-bottom:16px; }
+    .btn-row { display:flex; gap:10px; flex-wrap:wrap; margin-top:4px; }
+    button { border:0; cursor:pointer; border-radius:12px; padding:12px 16px; color:white; font-weight:800; letter-spacing:.2px; }
+    .primary { background:linear-gradient(135deg,#4776ff,#73a4ff); box-shadow:0 10px 26px rgba(71,118,255,.28); flex:1 1 150px; }
+    .ghost { background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.14); color:rgba(255,255,255,.92); }
+    .sample { background:rgba(255,255,255,.05); color:rgba(255,255,255,.88); border:1px solid rgba(255,255,255,.12); }
+    .status-wrap { display:flex; flex-wrap:wrap; gap:10px; margin-bottom:16px; }
+    .chip { display:inline-flex; align-items:center; gap:8px; border-radius:999px; padding:9px 13px; font-weight:900; font-size:13px; border:1px solid transparent; }
+    .chip.pass { color:#d9ffe9; background:rgba(50,213,131,.18); border-color:rgba(50,213,131,.36); }
+    .chip.fail { color:#ffe1e4; background:rgba(255,90,106,.16); border-color:rgba(255,90,106,.36); }
+    .chip.wait { color:#fff1ce; background:rgba(253,176,34,.14); border-color:rgba(253,176,34,.32); }
+    .chip.info { color:#dbe8ff; background:rgba(138,180,255,.14); border-color:rgba(138,180,255,.32); }
+    .section { background:rgba(0,0,0,.19); border:1px solid rgba(255,255,255,.09); border-radius:14px; padding:14px; margin-top:13px; }
+    .section-title { font-weight:900; margin-bottom:11px; color:rgba(255,255,255,.96); }
+    .kv { display:grid; grid-template-columns:145px 1fr; gap:6px 12px; padding:6px 0; border-top:1px dashed rgba(255,255,255,.08); }
+    .kv:first-of-type { border-top:0; }
+    .k { color:var(--muted); font-weight:700; }
+    .v { font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace; word-break:break-all; color:#f8fbff; }
+    .v.pass { color:var(--green); font-weight:900; font-family:inherit; }
+    .v.fail { color:var(--red); font-weight:900; font-family:inherit; }
+    .error { color:#ffe1e4; border:1px solid rgba(255,90,106,.35); background:rgba(255,90,106,.13); padding:13px 14px; border-radius:14px; line-height:1.5; margin-top:14px; display:none; }
+    .total { margin-top:14px; padding:16px; border-radius:16px; font-weight:1000; font-size:20px; text-align:center; border:1px solid rgba(255,255,255,.12); background:rgba(255,255,255,.05); }
+    .total.pass { color:#d9ffe9; background:rgba(50,213,131,.16); border-color:rgba(50,213,131,.36); }
+    .total.fail { color:#ffe1e4; background:rgba(255,90,106,.14); border-color:rgba(255,90,106,.36); }
+    .footer-note { color:var(--muted); font-size:12.5px; line-height:1.5; margin-top:18px; }
+    .tab-nav { display:flex; gap:10px; flex-wrap:wrap; margin-bottom:16px; }
+    .tab-btn { border:1px solid rgba(255,255,255,.14); background:rgba(255,255,255,.07); color:rgba(255,255,255,.90); border-radius:999px; padding:11px 18px; font-weight:950; font-size:13px; box-shadow:none; }
+    .tab-btn.active { background:linear-gradient(135deg,#4776ff,#73a4ff); border-color:rgba(138,180,255,.62); color:#fff; box-shadow:0 10px 26px rgba(71,118,255,.24); }
+    .tab-panel { display:none; }
+    .tab-panel.active { display:block; }
+    .aes-layout { display:grid; grid-template-columns:1fr; gap:16px; }
+    @media (min-width:940px) { .aes-layout { grid-template-columns:1fr 1fr; } }
+    .mini-result { min-height:46px; display:flex; align-items:center; border:1px solid rgba(255,255,255,.09); background:rgba(0,0,0,.19); border-radius:12px; padding:13px 14px; font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace; word-break:break-all; color:#f8fbff; }
+    @media (max-width:520px) { .hero-inner{grid-template-columns:1fr;gap:14px}.brand-logo-img{width:190px}.title{font-size:28px}.header-meta{gap:6px}.kv{grid-template-columns:1fr;gap:2px} }
   </style>
 </head>
 <body>
   <header class="hero">
     <div class="hero-inner">
       <div class="brand-area" aria-label="3ALOGICS brand">
-        <img class="brand-logo-img" src="data:image/png;base64,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" alt="3ALogics" />
-        <div class="brand-tagline">SMART NFC CHOICE FOR YOUR LIFE</div>
+        <img class="brand-logo-img" src="data:image/png;base64,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" alt="3ALogics" />
       </div>
       <div class="title-wrap">
         <h1 class="title">TUN Verification Tool</h1>
         <div class="subtitle">AES-128 · AES-CMAC · TUN Verification Workspace</div>
         <div class="header-meta">
-          <span><b>Version</b> 1.0</span>
-          <span>·</span>
-          <span><b>Designer</b> Hajoon Kim</span>
-          <span>·</span>
-          <span><b>Team</b> SoC Digital Team</span>
-          <span>·</span>
-          <span><b>Company</b> 3ALogics</span>
+          <span><b>Version</b> 1.1</span><span>·</span><span><b>Designer</b> Hajoon Kim</span><span>·</span><span><b>Team</b> SoC Digital Team</span><span>·</span><span><b>Company</b> 3ALogics</span>
         </div>
       </div>
     </div>
@@ -436,67 +129,58 @@
 
     <section id="tabTun" class="tab-panel active">
       <div class="grid">
-      <section class="card">
-        <div class="card-header">Input</div>
-        <div class="card-body">
-          <div class="form-row">
-            <label for="urlInput">NFC Value URL or Payload HEX</label>
-            <textarea id="urlInput" spellcheck="false" placeholder="https://www.dev.url.nedges.com/tun?enc=...&gid=...&TT=...&CMAC=..."></textarea>
-            <div class="hint">Paste the NFC URL copied from your smartphone, or paste the Payload HEX 0xNN list directly.</div>
+        <section class="card">
+          <div class="card-header">Input</div>
+          <div class="card-body">
+            <div class="form-row">
+              <label for="urlInput">NFC Value URL or Payload HEX</label>
+              <textarea id="urlInput" spellcheck="false" placeholder="https://www.dev.url.nedges.com/tun?enc=...&gid=...&TT=...&CMAC=..."></textarea>
+              <div class="hint">Paste the NFC URL copied from your smartphone, or paste the Payload HEX 0xNN list directly.</div>
+            </div>
+            <div class="form-row">
+              <label for="keyInput">KEY1 16B HEX</label>
+              <input id="keyInput" value="FFEEDDCCBBAA99887766554433221100" spellcheck="false" />
+              <div class="hint">UID 7-byte and UID 8-byte TUN formats are detected automatically.</div>
+            </div>
+            <div class="btn-row">
+              <button class="primary" onclick="verifyTun()">VERIFY</button>
+              <button class="ghost" onclick="clearAll()">CLEAR</button>
+              <button class="sample" onclick="loadSample()">SAMPLE</button>
+            </div>
+            <div id="errorBox" class="error"></div>
+            <div class="footer-note">This page runs entirely in the browser and does not send data to any server. When the NFC tag URL points to this web page, enc/gid/TT/CMAC values in the address bar are parsed automatically.</div>
           </div>
+        </section>
 
-          <div class="form-row">
-            <label for="keyInput">KEY1 16B HEX</label>
-            <input id="keyInput" value="FFEEDDCCBBAA99887766554433221100" spellcheck="false" />
+        <section class="card">
+          <div class="card-header">Result</div>
+          <div class="card-body">
+            <div id="statusWrap" class="status-wrap"><span class="chip wait">WAITING INPUT</span></div>
+            <div class="section">
+              <div class="section-title">STEP 1. Parsed URL Field</div>
+              <div class="kv"><div class="k">INPUT ENC</div><div id="inputEnc" class="v">-</div></div>
+              <div class="kv"><div class="k">INPUT GID</div><div id="inputGid" class="v">-</div></div>
+              <div class="kv"><div class="k">INPUT TT</div><div id="inputTt" class="v">-</div></div>
+              <div class="kv"><div class="k">INPUT CMAC</div><div id="inputCmac" class="v">-</div></div>
+            </div>
+            <div class="section">
+              <div class="section-title">STEP 2. ENC / CMAC Verification</div>
+              <div class="kv"><div class="k">INPUT ENC</div><div id="verifyInputEnc" class="v">-</div></div>
+              <div class="kv"><div class="k">Calculated ENC</div><div id="calcEnc" class="v">-</div></div>
+              <div class="kv"><div class="k">ENC Compare</div><div id="encCompare" class="v">-</div></div>
+              <div class="kv"><div class="k">INPUT CMAC</div><div id="verifyInputCmac" class="v">-</div></div>
+              <div class="kv"><div class="k">Calculated CMAC</div><div id="calcCmac" class="v">-</div></div>
+              <div class="kv"><div class="k">CMAC Compare</div><div id="cmacCompare" class="v">-</div></div>
+            </div>
+            <div class="section">
+              <div class="section-title">STEP 3. ENC Decryption</div>
+              <div class="kv"><div class="k">UID Type</div><div id="uidTypeOut" class="v">-</div></div>
+              <div class="kv"><div class="k">Decrypted UID</div><div id="uidOut" class="v">-</div></div>
+              <div class="kv"><div class="k">ReadCounter</div><div id="readCounterOut" class="v">-</div></div>
+            </div>
+            <div id="totalBox" class="total">TOTAL RESULT = -</div>
           </div>
-
-          <div class="btn-row">
-            <button class="primary" onclick="verifyTun()">VERIFY</button>
-            <button class="ghost" onclick="clearAll()">CLEAR</button>
-            <button class="sample" onclick="loadSample()">SAMPLE</button>
-          </div>
-
-          <div id="errorBox" class="error"></div>
-          <div class="footer-note">
-            This page runs entirely in the browser and does not send data to any server. When the NFC tag URL points to this web page, enc/gid/TT/CMAC values in the address bar are parsed automatically.
-          </div>
-        </div>
-      </section>
-
-      <section class="card">
-        <div class="card-header">Result</div>
-        <div class="card-body">
-          <div id="statusWrap" class="status-wrap">
-            <span class="chip wait">WAITING INPUT</span>
-          </div>
-
-          <div class="section">
-            <div class="section-title">STEP 1. Parsed URL Field</div>
-            <div class="kv"><div class="k">INPUT ENC</div><div id="inputEnc" class="v">-</div></div>
-            <div class="kv"><div class="k">INPUT GID</div><div id="inputGid" class="v">-</div></div>
-            <div class="kv"><div class="k">INPUT TT</div><div id="inputTt" class="v">-</div></div>
-            <div class="kv"><div class="k">INPUT CMAC</div><div id="inputCmac" class="v">-</div></div>
-          </div>
-
-          <div class="section">
-            <div class="section-title">STEP 2. ENC / CMAC Verification</div>
-            <div class="kv"><div class="k">INPUT ENC</div><div id="verifyInputEnc" class="v">-</div></div>
-            <div class="kv"><div class="k">Calculated ENC</div><div id="calcEnc" class="v">-</div></div>
-            <div class="kv"><div class="k">ENC Compare</div><div id="encCompare" class="v">-</div></div>
-            <div class="kv"><div class="k">INPUT CMAC</div><div id="verifyInputCmac" class="v">-</div></div>
-            <div class="kv"><div class="k">Calculated CMAC</div><div id="calcCmac" class="v">-</div></div>
-            <div class="kv"><div class="k">CMAC Compare</div><div id="cmacCompare" class="v">-</div></div>
-          </div>
-
-          <div class="section">
-            <div class="section-title">STEP 3. ENC Decryption</div>
-            <div class="kv"><div class="k">Decrypted UID</div><div id="uidOut" class="v">-</div></div>
-            <div class="kv"><div class="k">ReadCounter</div><div id="readCounterOut" class="v">-</div></div>
-          </div>
-
-          <div id="totalBox" class="total">TOTAL RESULT = -</div>
-        </div>
-      </section>
+        </section>
       </div>
     </section>
 
@@ -505,50 +189,18 @@
         <section class="card">
           <div class="card-header">AES-128 Input</div>
           <div class="card-body">
-            <div class="form-row">
-              <label for="aesKeyInput">KEY 16B HEX</label>
-              <input id="aesKeyInput" value="FFEEDDCCBBAA99887766554433221100" spellcheck="false" />
-              <div class="hint">AES-128 encrypt/decrypt uses this single 16-byte key.</div>
-            </div>
-
-            <div class="form-row">
-              <label for="aesPlainInput">INPUT 16B HEX</label>
-              <div class="hint">UID || Read Count || Zero padding</div>
-              <input id="aesPlainInput" value="000102030405060708090A0B0C0D0E0F" spellcheck="false" />
-              <div class="hint">Press INPUT → OUTPUT to encrypt this 16-byte input block.</div>
-            </div>
-
-            <div class="form-row">
-              <label for="aesCipherInput">OUTPUT 16B HEX</label>
-              <input id="aesCipherInput" spellcheck="false" />
-              <div class="hint">Press OUTPUT → INPUT to decrypt this 16-byte output block.</div>
-            </div>
-
-            <div class="btn-row">
-              <button class="primary" onclick="aes128Encrypt()">INPUT → OUTPUT</button>
-              <button class="primary" onclick="aes128Decrypt()">OUTPUT → INPUT</button>
-              <button class="ghost" onclick="aes128Clear()">CLEAR</button>
-              <button class="sample" onclick="aes128Sample()">SAMPLE</button>
-            </div>
-
+            <div class="form-row"><label for="aesKeyInput">KEY 16B HEX</label><input id="aesKeyInput" value="FFEEDDCCBBAA99887766554433221100" spellcheck="false" /><div class="hint">AES-128 encrypt/decrypt uses this single 16-byte key.</div></div>
+            <div class="form-row"><label for="aesPlainInput">INPUT 16B HEX</label><div class="hint">UID || Read Count || Zero padding</div><input id="aesPlainInput" value="000102030405060708090A0B0C0D0E0F" spellcheck="false" /><div class="hint">Press INPUT → OUTPUT to encrypt this 16-byte input block.</div></div>
+            <div class="form-row"><label for="aesCipherInput">OUTPUT 16B HEX</label><input id="aesCipherInput" spellcheck="false" /><div class="hint">Press OUTPUT → INPUT to decrypt this 16-byte output block.</div></div>
+            <div class="btn-row"><button class="primary" onclick="aes128Encrypt()">INPUT → OUTPUT</button><button class="primary" onclick="aes128Decrypt()">OUTPUT → INPUT</button><button class="ghost" onclick="aes128Clear()">CLEAR</button><button class="sample" onclick="aes128Sample()">SAMPLE</button></div>
             <div id="aesErrorBox" class="error"></div>
           </div>
         </section>
-
         <section class="card">
           <div class="card-header">AES-128 Result</div>
           <div class="card-body">
-            <div class="section">
-              <div class="section-title">Current Value</div>
-              <div class="kv"><div class="k">KEY</div><div id="aesKeyOut" class="v">-</div></div>
-              <div class="kv"><div class="k">INPUT</div><div id="aesPlainOut" class="v">-</div></div>
-              <div class="kv"><div class="k">OUTPUT</div><div id="aesCipherOut" class="v">-</div></div>
-              <div class="kv"><div class="k">MODE</div><div id="aesModeOut" class="v">-</div></div>
-            </div>
-            <div class="section">
-              <div class="section-title">Quick Copy</div>
-              <div id="aesQuickOut" class="mini-result">-</div>
-            </div>
+            <div class="section"><div class="section-title">Current Value</div><div class="kv"><div class="k">KEY</div><div id="aesKeyOut" class="v">-</div></div><div class="kv"><div class="k">INPUT</div><div id="aesPlainOut" class="v">-</div></div><div class="kv"><div class="k">OUTPUT</div><div id="aesCipherOut" class="v">-</div></div><div class="kv"><div class="k">MODE</div><div id="aesModeOut" class="v">-</div></div></div>
+            <div class="section"><div class="section-title">Quick Copy</div><div id="aesQuickOut" class="mini-result">-</div></div>
           </div>
         </section>
       </div>
@@ -559,679 +211,145 @@
         <section class="card">
           <div class="card-header">AES-CMAC Input</div>
           <div class="card-body">
-            <div class="form-row">
-              <label for="cmacKeyInput">KEY 16B HEX</label>
-              <input id="cmacKeyInput" value="FFEEDDCCBBAA99887766554433221100" spellcheck="false" />
-              <div class="hint">AES-CMAC uses this single 16-byte key.</div>
-            </div>
-
-            <div class="form-row">
-              <label for="cmacMsgInput">INPUT HEX</label>
-              <div class="hint">ENC || Custom_Data(Optional) || GID || Tag_Tamper</div>
-              <textarea id="cmacMsgInput" spellcheck="false" placeholder="Message HEX, any byte length"></textarea>
-              <div class="hint">Press INPUT → OUTPUT to generate AES-CMAC. Spaces, 0x, commas are allowed.</div>
-            </div>
-
-            <div class="form-row">
-              <label for="cmacOutputInput">OUTPUT CMAC HEX</label>
-              <input id="cmacOutputInput" spellcheck="false" />
-              <div class="hint">For verify, enter either CMAC FULL 16B HEX or TUN truncated CMAC 8B HEX.</div>
-            </div>
-
-            <div class="btn-row">
-              <button class="primary" onclick="cmacGenerate()">INPUT → OUTPUT</button>
-              <button class="primary" onclick="cmacVerify()">INPUT + OUTPUT VERIFY</button>
-              <button class="ghost" onclick="cmacClear()">CLEAR</button>
-              <button class="sample" onclick="cmacSample()">SAMPLE</button>
-            </div>
-
+            <div class="form-row"><label for="cmacKeyInput">KEY 16B HEX</label><input id="cmacKeyInput" value="FFEEDDCCBBAA99887766554433221100" spellcheck="false" /><div class="hint">AES-CMAC uses this single 16-byte key.</div></div>
+            <div class="form-row"><label for="cmacMsgInput">INPUT HEX</label><div class="hint">ENC || Custom_Data(Optional) || GID || Tag_Tamper</div><textarea id="cmacMsgInput" spellcheck="false" placeholder="Message HEX, any byte length"></textarea><div class="hint">Press INPUT → OUTPUT to generate AES-CMAC. Spaces, 0x, commas are allowed.</div></div>
+            <div class="form-row"><label for="cmacOutputInput">OUTPUT CMAC HEX</label><input id="cmacOutputInput" spellcheck="false" /><div class="hint">For verify, enter either CMAC FULL 16B HEX or TUN truncated CMAC 8B HEX.</div></div>
+            <div class="btn-row"><button class="primary" onclick="cmacGenerate()">INPUT → OUTPUT</button><button class="primary" onclick="cmacVerify()">VERIFY</button><button class="ghost" onclick="cmacClear()">CLEAR</button><button class="sample" onclick="cmacSample()">SAMPLE</button></div>
             <div id="cmacErrorBox" class="error"></div>
           </div>
         </section>
-
         <section class="card">
           <div class="card-header">AES-CMAC Result</div>
           <div class="card-body">
-            <div class="section">
-              <div class="section-title">Current Value</div>
-              <div class="kv"><div class="k">KEY</div><div id="cmacKeyOut" class="v">-</div></div>
-              <div class="kv"><div class="k">INPUT</div><div id="cmacMsgOut" class="v">-</div></div>
-              <div class="kv"><div class="k">CMAC FULL 16B</div><div id="cmacOut" class="v">-</div></div>
-              <div class="kv"><div class="k">CMAC TUN 8B</div><div id="cmacTruncOut" class="v">-</div></div>
-              <div class="kv"><div class="k">COMPARE</div><div id="cmacCompareOut" class="v">-</div></div>
-              <div class="kv"><div class="k">MODE</div><div id="cmacModeOut" class="v">-</div></div>
-            </div>
-            <div class="section">
-              <div class="section-title">Quick Copy</div>
-              <div id="cmacQuickOut" class="mini-result">-</div>
-            </div>
+            <div class="section"><div class="section-title">Current Value</div><div class="kv"><div class="k">KEY</div><div id="cmacKeyOut" class="v">-</div></div><div class="kv"><div class="k">INPUT</div><div id="cmacMsgOut" class="v">-</div></div><div class="kv"><div class="k">CMAC FULL</div><div id="cmacFullOut" class="v">-</div></div><div class="kv"><div class="k">TUN CMAC</div><div id="cmacTunOut" class="v">-</div></div><div class="kv"><div class="k">VERIFY</div><div id="cmacVerifyOut" class="v">-</div></div></div>
+            <div class="section"><div class="section-title">Quick Copy</div><div id="cmacQuickOut" class="mini-result">-</div></div>
           </div>
         </section>
       </div>
     </section>
   </main>
 
-  <script>
-    const DEFAULT_SAMPLE = 'https://www.dev.url.nedges.com/tun?enc=4A4914EE0821BDD6B62FE87184597C0D&gid=55443322&TT=000000&CMAC=7B5E705CF37351FC';
+<script>
+  const $ = id => document.getElementById(id);
+  const SBOX = Uint8Array.from([
+    0x63,0x7c,0x77,0x7b,0xf2,0x6b,0x6f,0xc5,0x30,0x01,0x67,0x2b,0xfe,0xd7,0xab,0x76,
+    0xca,0x82,0xc9,0x7d,0xfa,0x59,0x47,0xf0,0xad,0xd4,0xa2,0xaf,0x9c,0xa4,0x72,0xc0,
+    0xb7,0xfd,0x93,0x26,0x36,0x3f,0xf7,0xcc,0x34,0xa5,0xe5,0xf1,0x71,0xd8,0x31,0x15,
+    0x04,0xc7,0x23,0xc3,0x18,0x96,0x05,0x9a,0x07,0x12,0x80,0xe2,0xeb,0x27,0xb2,0x75,
+    0x09,0x83,0x2c,0x1a,0x1b,0x6e,0x5a,0xa0,0x52,0x3b,0xd6,0xb3,0x29,0xe3,0x2f,0x84,
+    0x53,0xd1,0x00,0xed,0x20,0xfc,0xb1,0x5b,0x6a,0xcb,0xbe,0x39,0x4a,0x4c,0x58,0xcf,
+    0xd0,0xef,0xaa,0xfb,0x43,0x4d,0x33,0x85,0x45,0xf9,0x02,0x7f,0x50,0x3c,0x9f,0xa8,
+    0x51,0xa3,0x40,0x8f,0x92,0x9d,0x38,0xf5,0xbc,0xb6,0xda,0x21,0x10,0xff,0xf3,0xd2,
+    0xcd,0x0c,0x13,0xec,0x5f,0x97,0x44,0x17,0xc4,0xa7,0x7e,0x3d,0x64,0x5d,0x19,0x73,
+    0x60,0x81,0x4f,0xdc,0x22,0x2a,0x90,0x88,0x46,0xee,0xb8,0x14,0xde,0x5e,0x0b,0xdb,
+    0xe0,0x32,0x3a,0x0a,0x49,0x06,0x24,0x5c,0xc2,0xd3,0xac,0x62,0x91,0x95,0xe4,0x79,
+    0xe7,0xc8,0x37,0x6d,0x8d,0xd5,0x4e,0xa9,0x6c,0x56,0xf4,0xea,0x65,0x7a,0xae,0x08,
+    0xba,0x78,0x25,0x2e,0x1c,0xa6,0xb4,0xc6,0xe8,0xdd,0x74,0x1f,0x4b,0xbd,0x8b,0x8a,
+    0x70,0x3e,0xb5,0x66,0x48,0x03,0xf6,0x0e,0x61,0x35,0x57,0xb9,0x86,0xc1,0x1d,0x9e,
+    0xe1,0xf8,0x98,0x11,0x69,0xd9,0x8e,0x94,0x9b,0x1e,0x87,0xe9,0xce,0x55,0x28,0xdf,
+    0x8c,0xa1,0x89,0x0d,0xbf,0xe6,0x42,0x68,0x41,0x99,0x2d,0x0f,0xb0,0x54,0xbb,0x16
+  ]);
+  const INV_SBOX = (() => { const a=new Uint8Array(256); for(let i=0;i<256;i++) a[SBOX[i]]=i; return a; })();
+  const RCON = Uint8Array.from([0x00,0x01,0x02,0x04,0x08,0x10,0x20,0x40,0x80,0x1b,0x36]);
 
-
-    function switchTab(tabName) {
-      const isTun = tabName === 'tun';
-      const isAes = tabName === 'aes';
-      const isCmac = tabName === 'cmac';
-      $('tabTun').classList.toggle('active', isTun);
-      $('tabAes').classList.toggle('active', isAes);
-      $('tabCmac').classList.toggle('active', isCmac);
-      $('tabBtnTun').classList.toggle('active', isTun);
-      $('tabBtnAes').classList.toggle('active', isAes);
-      $('tabBtnCmac').classList.toggle('active', isCmac);
+  function xtime(a){ return ((a<<1) ^ ((a & 0x80) ? 0x1b : 0)) & 0xff; }
+  function gmul(a,b){ let p=0; for(let i=0;i<8;i++){ if(b&1)p^=a; const hi=a&0x80; a=(a<<1)&0xff; if(hi)a^=0x1b; b>>=1; } return p; }
+  function keyExpansion(key){
+    if(key.length!==16) throw new Error('AES-128 key must be exactly 16 bytes.');
+    const w=new Uint8Array(176); w.set(key); let bytes=16, r=1; const t=new Uint8Array(4);
+    while(bytes<176){
+      t.set(w.slice(bytes-4,bytes));
+      if(bytes%16===0){ const x=t[0]; t[0]=SBOX[t[1]]^RCON[r++]; t[1]=SBOX[t[2]]; t[2]=SBOX[t[3]]; t[3]=SBOX[x]; }
+      for(let i=0;i<4;i++){ w[bytes]=w[bytes-16]^t[i]; bytes++; }
     }
+    return w;
+  }
+  function addRoundKey(s,w,r){ for(let i=0;i<16;i++) s[i]^=w[r*16+i]; }
+  function subBytes(s){ for(let i=0;i<16;i++) s[i]=SBOX[s[i]]; }
+  function invSubBytes(s){ for(let i=0;i<16;i++) s[i]=INV_SBOX[s[i]]; }
+  function shiftRows(s){ const t=Uint8Array.from(s); s[1]=t[5];s[5]=t[9];s[9]=t[13];s[13]=t[1]; s[2]=t[10];s[6]=t[14];s[10]=t[2];s[14]=t[6]; s[3]=t[15];s[7]=t[3];s[11]=t[7];s[15]=t[11]; }
+  function invShiftRows(s){ const t=Uint8Array.from(s); s[1]=t[13];s[5]=t[1];s[9]=t[5];s[13]=t[9]; s[2]=t[10];s[6]=t[14];s[10]=t[2];s[14]=t[6]; s[3]=t[7];s[7]=t[11];s[11]=t[15];s[15]=t[3]; }
+  function mixColumns(s){ for(let c=0;c<4;c++){ const i=c*4,a=s[i],b=s[i+1],d=s[i+2],e=s[i+3]; s[i]=xtime(a)^(xtime(b)^b)^d^e; s[i+1]=a^xtime(b)^(xtime(d)^d)^e; s[i+2]=a^b^xtime(d)^(xtime(e)^e); s[i+3]=(xtime(a)^a)^b^d^xtime(e); } }
+  function invMixColumns(s){ for(let c=0;c<4;c++){ const i=c*4,a=s[i],b=s[i+1],d=s[i+2],e=s[i+3]; s[i]=gmul(a,14)^gmul(b,11)^gmul(d,13)^gmul(e,9); s[i+1]=gmul(a,9)^gmul(b,14)^gmul(d,11)^gmul(e,13); s[i+2]=gmul(a,13)^gmul(b,9)^gmul(d,14)^gmul(e,11); s[i+3]=gmul(a,11)^gmul(b,13)^gmul(d,9)^gmul(e,14); } }
+  function aesEncryptBlock(key,input){ const s=Uint8Array.from(input), w=keyExpansion(key); addRoundKey(s,w,0); for(let r=1;r<10;r++){subBytes(s);shiftRows(s);mixColumns(s);addRoundKey(s,w,r);} subBytes(s);shiftRows(s);addRoundKey(s,w,10); return s; }
+  function aesDecryptBlock(key,input){ const s=Uint8Array.from(input), w=keyExpansion(key); addRoundKey(s,w,10); for(let r=9;r>0;r--){invShiftRows(s);invSubBytes(s);addRoundKey(s,w,r);invMixColumns(s);} invShiftRows(s);invSubBytes(s);addRoundKey(s,w,0); return s; }
 
-    function showAesError(msg) {
-      const box = $('aesErrorBox');
-      box.textContent = msg;
-      box.style.display = 'block';
+  function normalizeHex(text){ return (text||'').replace(/0x/gi,'').replace(/[^0-9a-f]/gi,'').toUpperCase(); }
+  function hexToBytesExact(text,len){ const h=normalizeHex(text); if(h.length!==len*2) throw new Error(`Expected exactly ${len} bytes (${len*2} hex digits).`); const o=new Uint8Array(len); for(let i=0;i<len;i++) o[i]=parseInt(h.slice(i*2,i*2+2),16); return o; }
+  function hexToBytesAny(text){ const h=normalizeHex(text); if(!h.length || h.length%2) throw new Error('HEX input must contain a whole number of bytes.'); const o=new Uint8Array(h.length/2); for(let i=0;i<o.length;i++) o[i]=parseInt(h.slice(i*2,i*2+2),16); return o; }
+  function bytesToHex(a){ return Array.from(a,b=>b.toString(16).padStart(2,'0')).join('').toUpperCase(); }
+  function reverseBytes(a){ return Uint8Array.from(Array.from(a).reverse()); }
+  function equalBytes(a,b){ return a.length===b.length && a.every((v,i)=>v===b[i]); }
+  function xor16(a,b){ const o=new Uint8Array(16); for(let i=0;i<16;i++)o[i]=a[i]^b[i]; return o; }
+  function leftShift128(a){ const o=new Uint8Array(16); let carry=0; for(let i=15;i>=0;i--){ const next=(a[i]&0x80)?1:0; o[i]=((a[i]<<1)&0xff)|carry; carry=next; } return o; }
+  function aesCmac(key,msg){
+    const zero=new Uint8Array(16), rb=new Uint8Array(16); rb[15]=0x87;
+    const L=aesEncryptBlock(key,zero); let K1=leftShift128(L); if(L[0]&0x80)K1=xor16(K1,rb); let K2=leftShift128(K1); if(K1[0]&0x80)K2=xor16(K2,rb);
+    let n=msg.length===0?1:Math.ceil(msg.length/16); const complete=msg.length!==0 && msg.length%16===0; let last=new Uint8Array(16);
+    if(complete){ last=xor16(msg.slice((n-1)*16,n*16),K1); }
+    else { const rem=msg.length===0?new Uint8Array(0):msg.slice((n-1)*16); const pad=new Uint8Array(16); pad.set(rem); pad[rem.length]=0x80; last=xor16(pad,K2); }
+    let X=new Uint8Array(16); for(let i=0;i<n-1;i++) X=aesEncryptBlock(key,xor16(X,msg.slice(i*16,i*16+16))); return aesEncryptBlock(key,xor16(X,last));
+  }
+  function tunCmacMake(full){ const out=new Uint8Array(8); for(let i=0;i<8;i++) out[i]=full[14-i*2]; return out; }
+
+  function parseTunFields(text){
+    let src=text.trim();
+    const payloadTokens=src.match(/(?:0x)?[0-9A-Fa-f]{2}/g);
+    if(!/enc=/i.test(src) && payloadTokens && payloadTokens.length>8){
+      const bytes=Uint8Array.from(payloadTokens.map(x=>parseInt(x.replace(/^0x/i,''),16)));
+      src=Array.from(bytes,b=>String.fromCharCode(b)).join('');
     }
-
-    function hideAesError() {
-      const box = $('aesErrorBox');
-      box.textContent = '';
-      box.style.display = 'none';
-    }
-
-    function setAesResult(keyHex, plainHex, cipherHex, modeText, quickText) {
-      setText('aesKeyOut', keyHex || '-');
-      setText('aesPlainOut', plainHex || '-');
-      setText('aesCipherOut', cipherHex || '-');
-      setText('aesModeOut', modeText || '-');
-      $('aesQuickOut').textContent = quickText || '-';
-    }
-
-    function aes128Encrypt() {
-      try {
-        hideAesError();
-        const keyHex = $('aesKeyInput').value.trim().toUpperCase();
-        const plainHex = $('aesPlainInput').value.trim().toUpperCase();
-        const key = hexToBytesExact(keyHex, 16);
-        const plain = hexToBytesExact(plainHex, 16);
-        const cipher = aesEncryptBlock(key, plain);
-        const cipherHex = bytesToHex(cipher);
-        $('aesCipherInput').value = cipherHex;
-        setAesResult(bytesToHex(key), bytesToHex(plain), cipherHex, 'ENCRYPT : INPUT → OUTPUT', cipherHex);
-      } catch (e) {
-        showAesError(e.message || String(e));
-      }
-    }
-
-    function aes128Decrypt() {
-      try {
-        hideAesError();
-        const keyHex = $('aesKeyInput').value.trim().toUpperCase();
-        const cipherHex = $('aesCipherInput').value.trim().toUpperCase();
-        const key = hexToBytesExact(keyHex, 16);
-        const cipher = hexToBytesExact(cipherHex, 16);
-        const plain = aesDecryptBlock(key, cipher);
-        const plainHex = bytesToHex(plain);
-        $('aesPlainInput').value = plainHex;
-        setAesResult(bytesToHex(key), plainHex, bytesToHex(cipher), 'DECRYPT : OUTPUT → INPUT', plainHex);
-      } catch (e) {
-        showAesError(e.message || String(e));
-      }
-    }
-
-    function aes128Clear() {
-      $('aesPlainInput').value = '';
-      $('aesCipherInput').value = '';
-      hideAesError();
-      setAesResult('-', '-', '-', '-', '-');
-    }
-
-    function aes128Sample() {
-      $('aesKeyInput').value = '000102030405060708090A0B0C0D0E0F';
-      $('aesPlainInput').value = '00112233445566778899AABBCCDDEEFF';
-      $('aesCipherInput').value = '';
-      aes128Encrypt();
-    }
-
-    function hexToBytesAny(input) {
-      const clean = input.replace(/0x/gi, '').replace(/[^0-9a-fA-F]/g, '');
-      if (clean.length === 0) return new Uint8Array(0);
-      if (clean.length % 2 !== 0) {
-        throw new Error(`HEX length error. Need even number of hex chars, got ${clean.length}.`);
-      }
-      const out = new Uint8Array(clean.length / 2);
-      for (let i = 0; i < out.length; i++) {
-        out[i] = parseInt(clean.slice(i * 2, i * 2 + 2), 16);
-      }
-      return out;
-    }
-
-    function showCmacError(msg) {
-      const box = $('cmacErrorBox');
-      box.textContent = msg;
-      box.style.display = 'block';
-    }
-
-    function hideCmacError() {
-      const box = $('cmacErrorBox');
-      box.textContent = '';
-      box.style.display = 'none';
-    }
-
-    function cmacTunTruncate(cmacFull) {
-      const out = new Uint8Array(8);
-      for (let i = 0; i < 8; i++) out[i] = cmacFull[14 - (i * 2)];
-      return out;
-    }
-
-    function setCmacResult(keyHex, msgHex, cmacHex, cmacTruncHex, compareText, compareCls, modeText, quickText) {
-      setText('cmacKeyOut', keyHex || '-');
-      setText('cmacMsgOut', msgHex || '-');
-      setText('cmacOut', cmacHex || '-');
-      setText('cmacTruncOut', cmacTruncHex || '-');
-      setText('cmacCompareOut', compareText || '-', compareCls || '');
-      setText('cmacModeOut', modeText || '-');
-      $('cmacQuickOut').textContent = quickText || '-';
-    }
-
-    function cmacGenerate() {
-      try {
-        hideCmacError();
-        const keyHex = $('cmacKeyInput').value.trim().toUpperCase();
-        const msgHexRaw = $('cmacMsgInput').value.trim();
-        const key = hexToBytesExact(keyHex, 16);
-        const msg = hexToBytesAny(msgHexRaw);
-        const cmac = aesCmac(key, msg);
-        const cmacHex = bytesToHex(cmac);
-        const cmacTruncHex = bytesToHex(cmacTunTruncate(cmac));
-        $('cmacOutputInput').value = cmacHex;
-        setCmacResult(
-          bytesToHex(key),
-          bytesToHex(msg),
-          cmacHex,
-          cmacTruncHex,
-          '-',
-          '',
-          'GENERATE : INPUT → OUTPUT',
-          `CMAC FULL 16B = ${cmacHex}\nCMAC TUN 8B = ${cmacTruncHex}`
-        );
-      } catch (e) {
-        showCmacError(e.message || String(e));
-      }
-    }
-
-    function cmacVerify() {
-      try {
-        hideCmacError();
-        const keyHex = $('cmacKeyInput').value.trim().toUpperCase();
-        const msgHexRaw = $('cmacMsgInput').value.trim();
-        const expectedHex = $('cmacOutputInput').value.trim().toUpperCase();
-        const key = hexToBytesExact(keyHex, 16);
-        const msg = hexToBytesAny(msgHexRaw);
-        const expectedClean = expectedHex.replace(/0x/gi, '').replace(/[^0-9a-fA-F]/g, '');
-        if (expectedClean.length !== 32 && expectedClean.length !== 16) {
-          throw new Error(`OUTPUT CMAC length error. Need 32 hex chars for FULL 16B or 16 hex chars for TUN 8B, got ${expectedClean.length}.`);
-        }
-        const expected = hexToBytesAny(expectedHex);
-        const cmac = aesCmac(key, msg);
-        const cmacHex = bytesToHex(cmac);
-        const cmacTrunc = cmacTunTruncate(cmac);
-        const cmacTruncHex = bytesToHex(cmacTrunc);
-        const pass = expected.length === 16 ? equalBytes(cmac, expected) : equalBytes(cmacTrunc, expected);
-        const verifyType = expected.length === 16 ? 'FULL 16B' : 'TUN 8B';
-        setCmacResult(
-          bytesToHex(key),
-          bytesToHex(msg),
-          cmacHex,
-          cmacTruncHex,
-          pass ? 'PASS' : 'FAIL',
-          pass ? 'pass' : 'fail',
-          `VERIFY : INPUT + OUTPUT ${verifyType}`,
-          `CMAC FULL 16B = ${cmacHex}\nCMAC TUN 8B = ${cmacTruncHex}`
-        );
-      } catch (e) {
-        showCmacError(e.message || String(e));
-      }
-    }
-
-    function cmacClear() {
-      $('cmacMsgInput').value = '';
-      $('cmacOutputInput').value = '';
-      hideCmacError();
-      setCmacResult('-', '-', '-', '-', '-', '', '-', '-');
-    }
-
-    function cmacSample() {
-      $('cmacKeyInput').value = '2B7E151628AED2A6ABF7158809CF4F3C';
-      $('cmacMsgInput').value = '6BC1BEE22E409F96E93D7E117393172A';
-      $('cmacOutputInput').value = '';
-      cmacGenerate();
-    }
-
-    function $(id) { return document.getElementById(id); }
-
-    function showError(msg) {
-      const box = $('errorBox');
-      box.textContent = msg;
-      box.style.display = 'block';
-    }
-
-    function hideError() {
-      const box = $('errorBox');
-      box.textContent = '';
-      box.style.display = 'none';
-    }
-
-    function setText(id, value, cls) {
-      const el = $(id);
-      el.textContent = value;
-      el.className = 'v' + (cls ? ' ' + cls : '');
-    }
-
-    function setStatus(encPass, cmacPass, totalPass) {
-      $('statusWrap').innerHTML =
-        `<span class="chip ${encPass ? 'pass' : 'fail'}">ENC ${encPass ? 'PASS' : 'FAIL'}</span>` +
-        `<span class="chip ${cmacPass ? 'pass' : 'fail'}">CMAC ${cmacPass ? 'PASS' : 'FAIL'}</span>` +
-        `<span class="chip ${totalPass ? 'pass' : 'fail'}">TOTAL ${totalPass ? 'PASS' : 'FAIL'}</span>`;
-
-      const total = $('totalBox');
-      total.textContent = `TOTAL RESULT = ${totalPass ? 'PASS' : 'FAIL'}`;
-      total.className = 'total ' + (totalPass ? 'pass' : 'fail');
-    }
-
-    function clearResult() {
-      const ids = [
-        'inputEnc', 'inputGid', 'inputTt', 'inputCmac',
-        'verifyInputEnc', 'calcEnc', 'encCompare',
-        'verifyInputCmac', 'calcCmac', 'cmacCompare',
-        'uidOut', 'readCounterOut'
-      ];
-
-      ids.forEach(id => setText(id, '-'));
-      $('statusWrap').innerHTML = '<span class="chip wait">WAITING INPUT</span>';
-      $('totalBox').textContent = 'TOTAL RESULT = -';
-      $('totalBox').className = 'total';
-    }
-
-    function clearAll() {
-      $('urlInput').value = '';
-      hideError();
-      clearResult();
-    }
-
-    function loadSample() {
-      $('urlInput').value = DEFAULT_SAMPLE;
-      verifyTun();
-    }
-
-    function hexToBytesExact(input, expectedBytes) {
-      const clean = input.replace(/[^0-9a-fA-F]/g, '');
-      if (clean.length !== expectedBytes * 2) {
-        throw new Error(`HEX length error. Need ${expectedBytes * 2} hex chars, got ${clean.length}.`);
-      }
-      const out = new Uint8Array(expectedBytes);
-      for (let i = 0; i < expectedBytes; i++) {
-        out[i] = parseInt(clean.slice(i * 2, i * 2 + 2), 16);
-      }
-      return out;
-    }
-
-    function bytesToHex(bytes) {
-      return Array.from(bytes).map(b => b.toString(16).padStart(2, '0').toUpperCase()).join('');
-    }
-
-    function reverseBytes(bytes) {
-      return Uint8Array.from(Array.from(bytes).reverse());
-    }
-
-    function equalBytes(a, b) {
-      if (a.length !== b.length) return false;
-      let diff = 0;
-      for (let i = 0; i < a.length; i++) diff |= a[i] ^ b[i];
-      return diff === 0;
-    }
-
-    function extractHexField(text, field, hexLen) {
-      let re = new RegExp('(?:^|[?&])' + field + '=%?([0-9a-fA-F]{' + hexLen + '})', 'i');
-      let m = text.match(re);
-      if (!m) {
-        re = new RegExp(field + '=%?([0-9a-fA-F]{' + hexLen + '})', 'i');
-        m = text.match(re);
-      }
-      return m ? m[1] : null;
-    }
-
-    function payloadHexToAscii(text) {
-      const matches = text.matchAll(/0x([0-9a-fA-F]{2})/g);
-      let s = '';
-      for (const m of matches) {
-        const v = parseInt(m[1], 16);
-        s += (v >= 0x20 && v <= 0x7E) ? String.fromCharCode(v) : ' ';
-      }
-      return s;
-    }
-
-    function parseTunFields(input) {
-      const tryParse = (text) => {
-        const enc = extractHexField(text, 'enc', 32);
-        const gid = extractHexField(text, 'gid', 8);
-        const tt = extractHexField(text, 'TT', 6);
-        const cmac = extractHexField(text, 'CMAC', 16);
-        if (!enc || !gid || !tt || !cmac) return null;
-        return {
-          enc: hexToBytesExact(enc, 16),
-          gid: hexToBytesExact(gid, 4),
-          tt: hexToBytesExact(tt, 3),
-          cmac: hexToBytesExact(cmac, 8)
-        };
-      };
-
-      let parsed = tryParse(input);
-      if (parsed) return parsed;
-
-      parsed = tryParse(payloadHexToAscii(input));
-      if (parsed) return parsed;
-
-      throw new Error('Parse failed. Need enc=32hex, gid=8hex, TT=6hex, CMAC=16hex.');
-    }
-
-    function gfMul(a, b) {
-      let p = 0;
-      for (let i = 0; i < 8; i++) {
-        if (b & 1) p ^= a;
-        const hi = a & 0x80;
-        a = (a << 1) & 0xff;
-        if (hi) a ^= 0x1b;
-        b >>= 1;
-      }
-      return p & 0xff;
-    }
-
-    function rotl8(x, n) { return ((x << n) | (x >> (8 - n))) & 0xff; }
-
-    function gfPow(a, p) {
-      let r = 1;
-      while (p > 0) {
-        if (p & 1) r = gfMul(r, a);
-        a = gfMul(a, a);
-        p >>= 1;
-      }
-      return r;
-    }
-
-    const SBOX = new Uint8Array(256);
-    const INV_SBOX = new Uint8Array(256);
-
-    for (let i = 0; i < 256; i++) {
-      const inv = i === 0 ? 0 : gfPow(i, 254);
-      const s = (inv ^ rotl8(inv, 1) ^ rotl8(inv, 2) ^ rotl8(inv, 3) ^ rotl8(inv, 4) ^ 0x63) & 0xff;
-      SBOX[i] = s;
-      INV_SBOX[s] = i;
-    }
-
-    function keyExpansion(key) {
-      const w = new Uint8Array(176);
-      w.set(key);
-      let rcon = 1;
-      const temp = new Uint8Array(4);
-
-      for (let i = 16; i < 176; i += 4) {
-        temp[0] = w[i - 4];
-        temp[1] = w[i - 3];
-        temp[2] = w[i - 2];
-        temp[3] = w[i - 1];
-
-        if (i % 16 === 0) {
-          const t = temp[0];
-          temp[0] = SBOX[temp[1]] ^ rcon;
-          temp[1] = SBOX[temp[2]];
-          temp[2] = SBOX[temp[3]];
-          temp[3] = SBOX[t];
-          rcon = gfMul(rcon, 2);
-        }
-
-        for (let j = 0; j < 4; j++) {
-          w[i + j] = w[i - 16 + j] ^ temp[j];
-        }
-      }
-
-      return w;
-    }
-
-    function addRoundKey(s, w, round) {
-      for (let i = 0; i < 16; i++) s[i] ^= w[round * 16 + i];
-    }
-
-    function subBytes(s) { for (let i = 0; i < 16; i++) s[i] = SBOX[s[i]]; }
-    function invSubBytes(s) { for (let i = 0; i < 16; i++) s[i] = INV_SBOX[s[i]]; }
-
-    function shiftRows(s) {
-      const t = s.slice();
-      for (let r = 0; r < 4; r++) {
-        for (let c = 0; c < 4; c++) s[r + 4 * c] = t[r + 4 * ((c + r) & 3)];
-      }
-    }
-
-    function invShiftRows(s) {
-      const t = s.slice();
-      for (let r = 0; r < 4; r++) {
-        for (let c = 0; c < 4; c++) s[r + 4 * c] = t[r + 4 * ((c - r + 4) & 3)];
-      }
-    }
-
-    function mixColumns(s) {
-      for (let c = 0; c < 4; c++) {
-        const i = 4 * c;
-        const a0 = s[i], a1 = s[i+1], a2 = s[i+2], a3 = s[i+3];
-        s[i]   = gfMul(a0,2) ^ gfMul(a1,3) ^ a2 ^ a3;
-        s[i+1] = a0 ^ gfMul(a1,2) ^ gfMul(a2,3) ^ a3;
-        s[i+2] = a0 ^ a1 ^ gfMul(a2,2) ^ gfMul(a3,3);
-        s[i+3] = gfMul(a0,3) ^ a1 ^ a2 ^ gfMul(a3,2);
-      }
-    }
-
-    function invMixColumns(s) {
-      for (let c = 0; c < 4; c++) {
-        const i = 4 * c;
-        const a0 = s[i], a1 = s[i+1], a2 = s[i+2], a3 = s[i+3];
-        s[i]   = gfMul(a0,14) ^ gfMul(a1,11) ^ gfMul(a2,13) ^ gfMul(a3,9);
-        s[i+1] = gfMul(a0,9) ^ gfMul(a1,14) ^ gfMul(a2,11) ^ gfMul(a3,13);
-        s[i+2] = gfMul(a0,13) ^ gfMul(a1,9) ^ gfMul(a2,14) ^ gfMul(a3,11);
-        s[i+3] = gfMul(a0,11) ^ gfMul(a1,13) ^ gfMul(a2,9) ^ gfMul(a3,14);
-      }
-    }
-
-    function aesEncryptBlock(key, input) {
-      const s = Uint8Array.from(input);
-      const w = keyExpansion(key);
-
-      addRoundKey(s, w, 0);
-      for (let r = 1; r <= 9; r++) {
-        subBytes(s);
-        shiftRows(s);
-        mixColumns(s);
-        addRoundKey(s, w, r);
-      }
-      subBytes(s);
-      shiftRows(s);
-      addRoundKey(s, w, 10);
-      return s;
-    }
-
-    function aesDecryptBlock(key, input) {
-      const s = Uint8Array.from(input);
-      const w = keyExpansion(key);
-
-      addRoundKey(s, w, 10);
-      for (let r = 9; r >= 1; r--) {
-        invShiftRows(s);
-        invSubBytes(s);
-        addRoundKey(s, w, r);
-        invMixColumns(s);
-      }
-      invShiftRows(s);
-      invSubBytes(s);
-      addRoundKey(s, w, 0);
-      return s;
-    }
-
-    function xorBytes(a, b) {
-      const out = new Uint8Array(a.length);
-      for (let i = 0; i < a.length; i++) out[i] = a[i] ^ b[i];
-      return out;
-    }
-
-    function leftShift128(input) {
-      const out = new Uint8Array(16);
-      let carry = 0;
-      for (let i = 15; i >= 0; i--) {
-        const nextCarry = (input[i] & 0x80) ? 1 : 0;
-        out[i] = ((input[i] << 1) & 0xff) | carry;
-        carry = nextCarry;
-      }
-      return out;
-    }
-
-    function aesCmac(key, message) {
-      const L = aesEncryptBlock(key, new Uint8Array(16));
-      let K1 = leftShift128(L);
-      if (L[0] & 0x80) K1[15] ^= 0x87;
-
-      let K2 = leftShift128(K1);
-      if (K1[0] & 0x80) K2[15] ^= 0x87;
-
-      const n = message.length === 0 ? 1 : Math.ceil(message.length / 16);
-      const complete = message.length !== 0 && message.length % 16 === 0;
-      let last;
-
-      if (complete) {
-        last = xorBytes(message.slice(16 * (n - 1), 16 * n), K1);
-      } else {
-        const block = new Uint8Array(16);
-        const lastLen = message.length === 0 ? 0 : message.length % 16;
-        if (lastLen > 0) block.set(message.slice(16 * (n - 1)));
-        block[lastLen] = 0x80;
-        last = xorBytes(block, K2);
-      }
-
-      let X = new Uint8Array(16);
-      for (let blockIdx = 0; blockIdx < n - 1; blockIdx++) {
-        X = aesEncryptBlock(key, xorBytes(X, message.slice(16 * blockIdx, 16 * blockIdx + 16)));
-      }
-
-      return aesEncryptBlock(key, xorBytes(X, last));
-    }
-
-    function tunCmacMake(cmacFull) {
-      const out = new Uint8Array(8);
-      for (let i = 0; i < 8; i++) out[i] = cmacFull[14 - (i * 2)];
-      return out;
-    }
-
-    function isValidTunPlain(plain) {
-      return plain.length === 16 &&
-        plain[7] === 0x00 &&
-        plain[12] === 0x00 && plain[13] === 0x00 && plain[14] === 0x00 && plain[15] === 0x00;
-    }
-
-    function readCounterPlusOne(rc) {
-      const out = Uint8Array.from(rc);
-      if (out[0] < 0xff) out[0]++;
-      else {
-        out[0] = 0;
-        if (out[1] < 0xff) out[1]++;
-        else {
-          out[1] = 0;
-          if (out[2] < 0xff) out[2]++;
-          else {
-            out[2] = 0;
-            if (out[3] < 0xff) out[3]++;
-            else out.fill(0);
-          }
-        }
-      }
-      return out;
-    }
-
-    function verifyCore(fields, key) {
-      const decryptRaw = aesDecryptBlock(key, fields.enc);
-      const decryptRev = aesDecryptBlock(key, reverseBytes(fields.enc));
-
-      let plain;
-      let reverseMode = false;
-
-      if (isValidTunPlain(decryptRaw)) {
-        plain = decryptRaw;
-      } else if (isValidTunPlain(decryptRev)) {
-        plain = decryptRev;
-        reverseMode = true;
-      } else {
-        throw new Error('AES decrypt result is invalid. Check KEY1, ENC value, or tag read timing.');
-      }
-
-      const calcEncInternal = aesEncryptBlock(key, plain);
-      const calcEnc = reverseMode ? reverseBytes(calcEncInternal) : calcEncInternal;
-      const encPass = equalBytes(calcEnc, fields.enc);
-
-      const cmacInput = new Uint8Array(23);
-      for (let i = 0; i < 16; i++) cmacInput[i] = fields.enc[15 - i];
-      for (let i = 0; i < 4; i++) cmacInput[16 + i] = fields.gid[3 - i];
-      for (let i = 0; i < 3; i++) cmacInput[20 + i] = fields.tt[2 - i];
-
-      const cmacFull = aesCmac(key, cmacInput);
-      const calcCmac = tunCmacMake(cmacFull);
-      const cmacPass = equalBytes(calcCmac, fields.cmac);
-
-      const uid = plain.slice(0, 7);
-      const readCntMinusOne = plain.slice(8, 12);
-      const readCounter = readCounterPlusOne(readCntMinusOne);
-      const readCounterDisplay = reverseBytes(readCounter);
-
-      return { calcEnc, encPass, calcCmac, cmacPass, uid, readCounterDisplay };
-    }
-
-    function verifyTun() {
-      try {
-        hideError();
-        clearResult();
-
-        const input = $('urlInput').value.trim();
-        if (!input) throw new Error('Input URL or Payload HEX is empty.');
-
-        const fields = parseTunFields(input);
-        const key = hexToBytesExact($('keyInput').value, 16);
-        const result = verifyCore(fields, key);
-
-        setText('inputEnc', bytesToHex(fields.enc));
-        setText('inputGid', bytesToHex(fields.gid));
-        setText('inputTt', bytesToHex(fields.tt));
-        setText('inputCmac', bytesToHex(fields.cmac));
-
-        setText('verifyInputEnc', bytesToHex(fields.enc));
-        setText('calcEnc', bytesToHex(result.calcEnc));
-        setText('encCompare', result.encPass ? 'PASS' : 'FAIL', result.encPass ? 'pass' : 'fail');
-
-        setText('verifyInputCmac', bytesToHex(fields.cmac));
-        setText('calcCmac', bytesToHex(result.calcCmac));
-        setText('cmacCompare', result.cmacPass ? 'PASS' : 'FAIL', result.cmacPass ? 'pass' : 'fail');
-
-        setText('uidOut', bytesToHex(result.uid));
-        setText('readCounterOut', bytesToHex(result.readCounterDisplay));
-
-        setStatus(result.encPass, result.cmacPass, result.encPass && result.cmacPass);
-      } catch (e) {
-        showError(e.message || String(e));
-      }
-    }
-
-    window.addEventListener('DOMContentLoaded', () => {
-      const href = window.location.href;
-      if (href.match(/enc=%?[0-9a-fA-F]{32}/i) && href.match(/gid=%?[0-9a-fA-F]{8}/i)) {
-        switchTab('tun');
-        $('urlInput').value = href;
-        setTimeout(verifyTun, 100);
-      }
-    });
-  </script>
+    const get=(name,len)=>{ const m=src.match(new RegExp(name+'=([0-9a-fA-F]{'+(len*2)+'})','i')); if(!m) throw new Error(`Missing or invalid ${name} field.`); return hexToBytesExact(m[1],len); };
+    return {enc:get('enc',16), gid:get('gid',4), tt:get('TT',3), cmac:get('CMAC',8)};
+  }
+  function detectTunPlain(plain){
+    if(plain.length!==16 || plain[12]||plain[13]||plain[14]||plain[15]) return null;
+    if(plain[7]===0x00){ return {uidType:'7-byte UID', uid:plain.slice(0,7), readCntMinusOne:plain.slice(8,12)}; }
+    return {uidType:'8-byte UID', uid:plain.slice(0,8), readCntMinusOne:plain.slice(8,12)};
+  }
+  function readCounterPlusOne(rc){ const out=Uint8Array.from(rc); for(let i=0;i<4;i++){ if(out[i]<0xff){out[i]++; return out;} out[i]=0; } return out; }
+  function verifyCore(fields,key){
+    const raw=aesDecryptBlock(key,fields.enc), rev=aesDecryptBlock(key,reverseBytes(fields.enc));
+    let plain,reverseMode=false,meta=detectTunPlain(raw);
+    if(meta) plain=raw; else { meta=detectTunPlain(rev); if(meta){ plain=rev; reverseMode=true; } }
+    if(!meta) throw new Error('AES decrypt result is invalid. Check KEY1, ENC value, UID format, or tag read timing.');
+    const calcInternal=aesEncryptBlock(key,plain); const calcEnc=reverseMode?reverseBytes(calcInternal):calcInternal; const encPass=equalBytes(calcEnc,fields.enc);
+    const cmacInput=new Uint8Array(23); for(let i=0;i<16;i++)cmacInput[i]=fields.enc[15-i]; for(let i=0;i<4;i++)cmacInput[16+i]=fields.gid[3-i]; for(let i=0;i<3;i++)cmacInput[20+i]=fields.tt[2-i];
+    const calcCmac=tunCmacMake(aesCmac(key,cmacInput)); const cmacPass=equalBytes(calcCmac,fields.cmac); const readCounterDisplay=reverseBytes(readCounterPlusOne(meta.readCntMinusOne));
+    return {calcEnc,encPass,calcCmac,cmacPass,uid:meta.uid,uidType:meta.uidType,readCounterDisplay};
+  }
+
+  function setText(id,text){ $(id).textContent=text; }
+  function setCompare(id,pass){ const el=$(id); el.textContent=pass?'PASS':'FAIL'; el.className='v '+(pass?'pass':'fail'); }
+  function showError(id,msg){ const el=$(id); el.textContent=msg; el.style.display='block'; }
+  function hideError(id){ const el=$(id); el.textContent=''; el.style.display='none'; }
+  function clearResult(){ ['inputEnc','inputGid','inputTt','inputCmac','verifyInputEnc','calcEnc','encCompare','verifyInputCmac','calcCmac','cmacCompare','uidTypeOut','uidOut','readCounterOut'].forEach(id=>{setText(id,'-');$(id).className='v';}); $('statusWrap').innerHTML='<span class="chip wait">WAITING INPUT</span>'; $('totalBox').className='total'; setText('totalBox','TOTAL RESULT = -'); }
+  function verifyTun(){
+    try{ hideError('errorBox'); clearResult(); const input=$('urlInput').value.trim(); if(!input)throw new Error('Input URL or Payload HEX is empty.'); const fields=parseTunFields(input),key=hexToBytesExact($('keyInput').value,16),r=verifyCore(fields,key);
+      setText('inputEnc',bytesToHex(fields.enc)); setText('inputGid',bytesToHex(fields.gid)); setText('inputTt',bytesToHex(fields.tt)); setText('inputCmac',bytesToHex(fields.cmac));
+      setText('verifyInputEnc',bytesToHex(fields.enc)); setText('calcEnc',bytesToHex(r.calcEnc)); setCompare('encCompare',r.encPass); setText('verifyInputCmac',bytesToHex(fields.cmac)); setText('calcCmac',bytesToHex(r.calcCmac)); setCompare('cmacCompare',r.cmacPass);
+      setText('uidTypeOut',r.uidType); setText('uidOut',bytesToHex(r.uid)); setText('readCounterOut',bytesToHex(r.readCounterDisplay));
+      const total=r.encPass&&r.cmacPass; $('statusWrap').innerHTML=`<span class="chip ${total?'pass':'fail'}">${total?'PASS':'FAIL'}</span><span class="chip info">${r.uidType}</span>`; $('totalBox').className='total '+(total?'pass':'fail'); setText('totalBox','TOTAL RESULT = '+(total?'PASS':'FAIL'));
+    }catch(e){ showError('errorBox',e.message||String(e)); $('statusWrap').innerHTML='<span class="chip fail">ERROR</span>'; }
+  }
+  function clearAll(){ $('urlInput').value=''; $('keyInput').value='FFEEDDCCBBAA99887766554433221100'; hideError('errorBox'); clearResult(); }
+  function loadSample(){ $('urlInput').value='https://www.dev.url.nedges.com/tun?enc=2EFBDDC9878CCFC319E3761170E53EB6&gid=55443322&TT=000000&CMAC=0057217D7CC29549'; $('keyInput').value='00000000000000000000000000000000'; verifyTun(); }
+
+  function switchTab(name){ ['tun','aes','cmac'].forEach(n=>{ $('tab'+n[0].toUpperCase()+n.slice(1)).classList.toggle('active',n===name); $('tabBtn'+n[0].toUpperCase()+n.slice(1)).classList.toggle('active',n===name); }); }
+  function aesShow(key,input,output,mode){ setText('aesKeyOut',bytesToHex(key)); setText('aesPlainOut',bytesToHex(input)); setText('aesCipherOut',bytesToHex(output)); setText('aesModeOut',mode); setText('aesQuickOut',bytesToHex(output)); }
+  function aes128Encrypt(){ try{hideError('aesErrorBox'); const key=hexToBytesExact($('aesKeyInput').value,16), input=hexToBytesExact($('aesPlainInput').value,16), out=aesEncryptBlock(key,input); $('aesCipherInput').value=bytesToHex(out); aesShow(key,input,out,'ENCRYPT');}catch(e){showError('aesErrorBox',e.message||String(e));} }
+  function aes128Decrypt(){ try{hideError('aesErrorBox'); const key=hexToBytesExact($('aesKeyInput').value,16), input=hexToBytesExact($('aesCipherInput').value,16), out=aesDecryptBlock(key,input); $('aesPlainInput').value=bytesToHex(out); aesShow(key,out,input,'DECRYPT'); setText('aesQuickOut',bytesToHex(out));}catch(e){showError('aesErrorBox',e.message||String(e));} }
+  function aes128Clear(){ $('aesPlainInput').value='';$('aesCipherInput').value='';hideError('aesErrorBox');['aesKeyOut','aesPlainOut','aesCipherOut','aesModeOut','aesQuickOut'].forEach(id=>setText(id,'-')); }
+  function aes128Sample(){ $('aesKeyInput').value='000102030405060708090A0B0C0D0E0F';$('aesPlainInput').value='00112233445566778899AABBCCDDEEFF';$('aesCipherInput').value='';aes128Encrypt(); }
+
+  function cmacRender(key,msg,full,tun,verifyText='-'){ setText('cmacKeyOut',bytesToHex(key)); setText('cmacMsgOut',bytesToHex(msg)); setText('cmacFullOut',bytesToHex(full)); setText('cmacTunOut',bytesToHex(tun)); setText('cmacQuickOut',bytesToHex(tun)); const el=$('cmacVerifyOut'); el.textContent=verifyText; el.className='v'+(verifyText==='PASS'?' pass':verifyText==='FAIL'?' fail':''); }
+  function cmacGenerate(){ try{hideError('cmacErrorBox');const key=hexToBytesExact($('cmacKeyInput').value,16),msg=hexToBytesAny($('cmacMsgInput').value),full=aesCmac(key,msg),tun=tunCmacMake(full);$('cmacOutputInput').value=bytesToHex(tun);cmacRender(key,msg,full,tun,'-');}catch(e){showError('cmacErrorBox',e.message||String(e));} }
+  function cmacVerify(){ try{hideError('cmacErrorBox');const key=hexToBytesExact($('cmacKeyInput').value,16),msg=hexToBytesAny($('cmacMsgInput').value),full=aesCmac(key,msg),tun=tunCmacMake(full),given=hexToBytesAny($('cmacOutputInput').value); const pass=(given.length===16&&equalBytes(given,full))||(given.length===8&&equalBytes(given,tun)); cmacRender(key,msg,full,tun,pass?'PASS':'FAIL');}catch(e){showError('cmacErrorBox',e.message||String(e));} }
+  function cmacClear(){ $('cmacMsgInput').value='';$('cmacOutputInput').value='';hideError('cmacErrorBox');['cmacKeyOut','cmacMsgOut','cmacFullOut','cmacTunOut','cmacVerifyOut','cmacQuickOut'].forEach(id=>{setText(id,'-');$(id).className=id==='cmacVerifyOut'?'v':'';}); }
+  function cmacSample(){ $('cmacKeyInput').value='00000000000000000000000000000000';$('cmacMsgInput').value='B63EE5701176E319C3CF8C87C9DDFB2E22334455000000';$('cmacOutputInput').value='0057217D7CC29549';cmacVerify(); }
+
+  function autoLoadFromAddress(){ try{ const q=window.location.search; if(/enc=/i.test(q)){ $('urlInput').value=window.location.href; switchTab('tun'); } }catch(_){} }
+  autoLoadFromAddress();
+</script>
 </body>
 </html>
