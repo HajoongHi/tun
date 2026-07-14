@@ -114,7 +114,7 @@
         <h1 class="title">TUN Verification Tool</h1>
         <div class="subtitle">AES-128 · AES-CMAC · TUN Verification Workspace</div>
         <div class="header-meta">
-          <span><b>Version</b> 1.1</span><span>·</span><span><b>Designer</b> Hajoon Kim</span><span>·</span><span><b>Team</b> SoC Digital Team</span><span>·</span><span><b>Company</b> 3ALogics</span>
+          <span><b>Version</b> 1.2</span><span>·</span><span><b>Designer</b> Hajoon Kim</span><span>·</span><span><b>Team</b> SoC Digital Team</span><span>·</span><span><b>Company</b> 3ALogics</span>
         </div>
       </div>
     </div>
@@ -148,7 +148,7 @@
               <button class="sample" onclick="loadSample()">SAMPLE</button>
             </div>
             <div id="errorBox" class="error"></div>
-            <div class="footer-note">This page runs entirely in the browser and does not send data to any server. When the NFC tag URL points to this web page, enc/gid/TT/CMAC values in the address bar are parsed automatically.</div>
+            <div class="footer-note">This page runs entirely in the browser and does not send data to any server. When the NFC tag URL points to this web page, enc/cd(optional)/gid/TT/CMAC values in the address bar are parsed automatically.</div>
           </div>
         </section>
 
@@ -159,6 +159,7 @@
             <div class="section">
               <div class="section-title">STEP 1. Parsed URL Field</div>
               <div class="kv"><div class="k">INPUT ENC</div><div id="inputEnc" class="v">-</div></div>
+              <div class="kv"><div class="k">INPUT CUSTOM DATA</div><div id="inputCustom" class="v">-</div></div>
               <div class="kv"><div class="k">INPUT GID</div><div id="inputGid" class="v">-</div></div>
               <div class="kv"><div class="k">INPUT TT</div><div id="inputTt" class="v">-</div></div>
               <div class="kv"><div class="k">INPUT CMAC</div><div id="inputCmac" class="v">-</div></div>
@@ -168,6 +169,8 @@
               <div class="kv"><div class="k">INPUT ENC</div><div id="verifyInputEnc" class="v">-</div></div>
               <div class="kv"><div class="k">Calculated ENC</div><div id="calcEnc" class="v">-</div></div>
               <div class="kv"><div class="k">ENC Compare</div><div id="encCompare" class="v">-</div></div>
+              <div class="kv"><div class="k">CMAC Mode</div><div id="cmacModeOut" class="v">-</div></div>
+              <div class="kv"><div class="k">CMAC Input</div><div id="cmacInputOut" class="v">-</div></div>
               <div class="kv"><div class="k">INPUT CMAC</div><div id="verifyInputCmac" class="v">-</div></div>
               <div class="kv"><div class="k">Calculated CMAC</div><div id="calcCmac" class="v">-</div></div>
               <div class="kv"><div class="k">CMAC Compare</div><div id="cmacCompare" class="v">-</div></div>
@@ -300,7 +303,8 @@
       src=Array.from(bytes,b=>String.fromCharCode(b)).join('');
     }
     const get=(name,len)=>{ const m=src.match(new RegExp(name+'=([0-9a-fA-F]{'+(len*2)+'})','i')); if(!m) throw new Error(`Missing or invalid ${name} field.`); return hexToBytesExact(m[1],len); };
-    return {enc:get('enc',16), gid:get('gid',4), tt:get('TT',3), cmac:get('CMAC',8)};
+    const getOptional=(name,len)=>{ const m=src.match(new RegExp('(?:^|[?&])'+name+'=([0-9a-fA-F]{'+(len*2)+'})(?:&|$)','i')); return m ? hexToBytesExact(m[1],len) : null; };
+    return {enc:get('enc',16), cd:getOptional('cd',16), gid:get('gid',4), tt:get('TT',3), cmac:get('CMAC',8)};
   }
   function detectTunPlain(plain){
     if(plain.length!==16 || plain[12]||plain[13]||plain[14]||plain[15]) return null;
@@ -314,26 +318,36 @@
     if(meta) plain=raw; else { meta=detectTunPlain(rev); if(meta){ plain=rev; reverseMode=true; } }
     if(!meta) throw new Error('AES decrypt result is invalid. Check KEY1, ENC value, UID format, or tag read timing.');
     const calcInternal=aesEncryptBlock(key,plain); const calcEnc=reverseMode?reverseBytes(calcInternal):calcInternal; const encPass=equalBytes(calcEnc,fields.enc);
-    const cmacInput=new Uint8Array(23); for(let i=0;i<16;i++)cmacInput[i]=fields.enc[15-i]; for(let i=0;i<4;i++)cmacInput[16+i]=fields.gid[3-i]; for(let i=0;i<3;i++)cmacInput[20+i]=fields.tt[2-i];
-    const calcCmac=tunCmacMake(aesCmac(key,cmacInput)); const cmacPass=equalBytes(calcCmac,fields.cmac); const readCounterDisplay=reverseBytes(readCounterPlusOne(meta.readCntMinusOne));
-    return {calcEnc,encPass,calcCmac,cmacPass,uid:meta.uid,uidType:meta.uidType,readCounterDisplay};
+
+    const hasCustom=!!(fields.cd && fields.cd.length===16);
+    const cmacInput=new Uint8Array(hasCustom ? 39 : 23);
+    let pos=0;
+    for(let i=15;i>=0;i--) cmacInput[pos++]=fields.enc[i];
+    if(hasCustom){ for(let i=15;i>=0;i--) cmacInput[pos++]=fields.cd[i]; }
+    for(let i=3;i>=0;i--) cmacInput[pos++]=fields.gid[i];
+    for(let i=2;i>=0;i--) cmacInput[pos++]=fields.tt[i];
+
+    const calcCmac=tunCmacMake(aesCmac(key,cmacInput));
+    const cmacPass=equalBytes(calcCmac,fields.cmac);
+    const readCounterDisplay=reverseBytes(readCounterPlusOne(meta.readCntMinusOne));
+    return {calcEnc,encPass,calcCmac,cmacPass,uid:meta.uid,uidType:meta.uidType,readCounterDisplay,cmacInput,cmacMode:hasCustom?'CUSTOM DATA ON (39B)':'CUSTOM DATA OFF (23B)'};
   }
 
   function setText(id,text){ $(id).textContent=text; }
   function setCompare(id,pass){ const el=$(id); el.textContent=pass?'PASS':'FAIL'; el.className='v '+(pass?'pass':'fail'); }
   function showError(id,msg){ const el=$(id); el.textContent=msg; el.style.display='block'; }
   function hideError(id){ const el=$(id); el.textContent=''; el.style.display='none'; }
-  function clearResult(){ ['inputEnc','inputGid','inputTt','inputCmac','verifyInputEnc','calcEnc','encCompare','verifyInputCmac','calcCmac','cmacCompare','uidTypeOut','uidOut','readCounterOut'].forEach(id=>{setText(id,'-');$(id).className='v';}); $('statusWrap').innerHTML='<span class="chip wait">WAITING INPUT</span>'; $('totalBox').className='total'; setText('totalBox','TOTAL RESULT = -'); }
+  function clearResult(){ ['inputEnc','inputCustom','inputGid','inputTt','inputCmac','verifyInputEnc','calcEnc','encCompare','cmacModeOut','cmacInputOut','verifyInputCmac','calcCmac','cmacCompare','uidTypeOut','uidOut','readCounterOut'].forEach(id=>{setText(id,'-');$(id).className='v';}); $('statusWrap').innerHTML='<span class="chip wait">WAITING INPUT</span>'; $('totalBox').className='total'; setText('totalBox','TOTAL RESULT = -'); }
   function verifyTun(){
     try{ hideError('errorBox'); clearResult(); const input=$('urlInput').value.trim(); if(!input)throw new Error('Input URL or Payload HEX is empty.'); const fields=parseTunFields(input),key=hexToBytesExact($('keyInput').value,16),r=verifyCore(fields,key);
-      setText('inputEnc',bytesToHex(fields.enc)); setText('inputGid',bytesToHex(fields.gid)); setText('inputTt',bytesToHex(fields.tt)); setText('inputCmac',bytesToHex(fields.cmac));
-      setText('verifyInputEnc',bytesToHex(fields.enc)); setText('calcEnc',bytesToHex(r.calcEnc)); setCompare('encCompare',r.encPass); setText('verifyInputCmac',bytesToHex(fields.cmac)); setText('calcCmac',bytesToHex(r.calcCmac)); setCompare('cmacCompare',r.cmacPass);
+      setText('inputEnc',bytesToHex(fields.enc)); setText('inputCustom',fields.cd?bytesToHex(fields.cd):'NOT PRESENT'); setText('inputGid',bytesToHex(fields.gid)); setText('inputTt',bytesToHex(fields.tt)); setText('inputCmac',bytesToHex(fields.cmac));
+      setText('verifyInputEnc',bytesToHex(fields.enc)); setText('calcEnc',bytesToHex(r.calcEnc)); setCompare('encCompare',r.encPass); setText('cmacModeOut',r.cmacMode); setText('cmacInputOut',bytesToHex(r.cmacInput)); setText('verifyInputCmac',bytesToHex(fields.cmac)); setText('calcCmac',bytesToHex(r.calcCmac)); setCompare('cmacCompare',r.cmacPass);
       setText('uidTypeOut',r.uidType); setText('uidOut',bytesToHex(r.uid)); setText('readCounterOut',bytesToHex(r.readCounterDisplay));
-      const total=r.encPass&&r.cmacPass; $('statusWrap').innerHTML=`<span class="chip ${total?'pass':'fail'}">${total?'PASS':'FAIL'}</span><span class="chip info">${r.uidType}</span>`; $('totalBox').className='total '+(total?'pass':'fail'); setText('totalBox','TOTAL RESULT = '+(total?'PASS':'FAIL'));
+      const total=r.encPass&&r.cmacPass; $('statusWrap').innerHTML=`<span class="chip ${total?'pass':'fail'}">${total?'PASS':'FAIL'}</span><span class="chip info">${r.uidType}</span><span class="chip info">${r.cmacMode}</span>`; $('totalBox').className='total '+(total?'pass':'fail'); setText('totalBox','TOTAL RESULT = '+(total?'PASS':'FAIL'));
     }catch(e){ showError('errorBox',e.message||String(e)); $('statusWrap').innerHTML='<span class="chip fail">ERROR</span>'; }
   }
   function clearAll(){ $('urlInput').value=''; $('keyInput').value='FFEEDDCCBBAA99887766554433221100'; hideError('errorBox'); clearResult(); }
-  function loadSample(){ $('urlInput').value='https://www.dev.url.nedges.com/tun?enc=2EFBDDC9878CCFC319E3761170E53EB6&gid=55443322&TT=000000&CMAC=0057217D7CC29549'; $('keyInput').value='00000000000000000000000000000000'; verifyTun(); }
+  function loadSample(){ $('urlInput').value='https://www.dev.url.nedges.com/tun?enc=64F94058F22E26587FBA45CCDD5D2B40&cd=48A14C70E15F4B76BF97DFB6A7981AD7&gid=55443322&TT=000000&CMAC=60CBE92441E57D69'; $('keyInput').value='FFEEDDCCBBAA99887766554433221100'; verifyTun(); }
 
   function switchTab(name){ ['tun','aes','cmac'].forEach(n=>{ $('tab'+n[0].toUpperCase()+n.slice(1)).classList.toggle('active',n===name); $('tabBtn'+n[0].toUpperCase()+n.slice(1)).classList.toggle('active',n===name); }); }
   function aesShow(key,input,output,mode){ setText('aesKeyOut',bytesToHex(key)); setText('aesPlainOut',bytesToHex(input)); setText('aesCipherOut',bytesToHex(output)); setText('aesModeOut',mode); setText('aesQuickOut',bytesToHex(output)); }
